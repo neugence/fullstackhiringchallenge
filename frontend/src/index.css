@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  background-color: #f8f9fa;
+  color: #212529;
+}
+
+/* Lexical Editor Styles */
+.editor-placeholder {
+  color: #999;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 15px;
+  left: 10px;
+  font-size: 15px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.editor-paragraph {
+  margin: 0 0 15px 0;
+  position: relative;
+}
