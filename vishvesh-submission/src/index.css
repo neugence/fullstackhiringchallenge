@@ -1,0 +1,172 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 20% 98%;
+    --foreground: 220 15% 15%;
+
+    --card: 40 25% 97%;
+    --card-foreground: 220 15% 15%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 15% 15%;
+
+    --primary: 220 15% 15%;
+    --primary-foreground: 40 20% 98%;
+
+    --secondary: 40 15% 93%;
+    --secondary-foreground: 220 15% 25%;
+
+    --muted: 40 10% 94%;
+    --muted-foreground: 220 8% 50%;
+
+    --accent: 150 45% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 40 12% 88%;
+    --input: 40 12% 88%;
+    --ring: 220 15% 15%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 40 20% 96%;
+    --sidebar-foreground: 220 10% 30%;
+    --sidebar-primary: 220 15% 15%;
+    --sidebar-primary-foreground: 40 20% 98%;
+    --sidebar-accent: 40 15% 92%;
+    --sidebar-accent-foreground: 220 15% 20%;
+    --sidebar-border: 40 12% 88%;
+    --sidebar-ring: 150 45% 42%;
+
+    --editor-bg: 40 25% 99%;
+    --toolbar-bg: 40 20% 97%;
+    --toolbar-border: 40 12% 90%;
+    --ai-accent: 210 80% 55%;
+    --ai-accent-foreground: 0 0% 100%;
+    --success: 150 45% 42%;
+    --success-foreground: 0 0% 100%;
+  }
+
+  .dark {
+    --background: 220 15% 8%;
+    --foreground: 40 15% 90%;
+
+    --card: 220 15% 10%;
+    --card-foreground: 40 15% 90%;
+
+    --popover: 220 15% 10%;
+    --popover-foreground: 40 15% 90%;
+
+    --primary: 40 15% 90%;
+    --primary-foreground: 220 15% 8%;
+
+    --secondary: 220 12% 15%;
+    --secondary-foreground: 40 15% 85%;
+
+    --muted: 220 12% 15%;
+    --muted-foreground: 220 8% 55%;
+
+    --accent: 150 45% 42%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 62% 30%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 12% 18%;
+    --input: 220 12% 18%;
+    --ring: 40 15% 90%;
+
+    --sidebar-background: 220 15% 6%;
+    --sidebar-foreground: 40 12% 80%;
+    --sidebar-primary: 40 15% 90%;
+    --sidebar-primary-foreground: 220 15% 8%;
+    --sidebar-accent: 220 12% 12%;
+    --sidebar-accent-foreground: 40 12% 80%;
+    --sidebar-border: 220 12% 18%;
+    --sidebar-ring: 150 45% 42%;
+
+    --editor-bg: 220 15% 9%;
+    --toolbar-bg: 220 15% 11%;
+    --toolbar-border: 220 12% 18%;
+    --ai-accent: 210 80% 55%;
+    --ai-accent-foreground: 0 0% 100%;
+    --success: 150 45% 42%;
+    --success-foreground: 0 0% 100%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+  }
+
+  h1, h2, h3, h4 {
+    font-family: 'Playfair Display', serif;
+  }
+}
+
+/* Lexical editor styles */
+.editor-container {
+  @apply relative;
+}
+
+.editor-input {
+  @apply min-h-[400px] outline-none text-foreground leading-relaxed;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.125rem;
+  line-height: 1.8;
+}
+
+.editor-input p {
+  @apply mb-4;
+}
+
+.editor-input h1 {
+  @apply text-4xl font-bold mb-6 mt-8;
+  font-family: 'Playfair Display', serif;
+}
+
+.editor-input h2 {
+  @apply text-2xl font-semibold mb-4 mt-6;
+  font-family: 'Playfair Display', serif;
+}
+
+.editor-input h3 {
+  @apply text-xl font-semibold mb-3 mt-5;
+  font-family: 'Playfair Display', serif;
+}
+
+.editor-input ul {
+  @apply list-disc ml-6 mb-4;
+}
+
+.editor-input ol {
+  @apply list-decimal ml-6 mb-4;
+}
+
+.editor-input li {
+  @apply mb-1;
+}
+
+.editor-input code {
+  font-family: 'JetBrains Mono', monospace;
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm;
+}
+
+.editor-placeholder {
+  @apply absolute top-0 left-0 pointer-events-none select-none;
+  color: hsl(var(--muted-foreground));
+  font-size: 1.125rem;
+  font-family: 'Inter', sans-serif;
+}
