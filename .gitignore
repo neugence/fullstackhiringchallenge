@@ -1,0 +1,27 @@
+# --- Environment / Sensitive Data ---
+.env
+*.db
+blog.db
+
+# --- Python (Backend) ---
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.venv/
+env/
+build/
+dist/
+*.spec
+
+# --- Node (Frontend) ---
+node_modules/
+dist/
+dist-ssr/
+*.local
+.vscode/
+.idea/
+
+# --- OS / Misc ---
+.DS_Store
+Thumbs.db

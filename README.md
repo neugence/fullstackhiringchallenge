@@ -1,98 +1,67 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# Smart Blog Editor 📝
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+A production-ready, Notion-style blog editor featuring a rich text interface, intelligent auto-saving, and AI-powered content summarization.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+## PR Link : https://github.com/neugence/fullstackhiringchallenge/pull/1
 
----
+## Archtitecture Diagram : frontend\public\Archtitecture_Diagram.png
 
-## Task Overview
+## 🛠️ Tech Stack
 
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
+* **Frontend:** React, Tailwind CSS, Zustand, Lexical.
+* **Backend:** FastAPI (Python), SQLAlchemy ORM.
+* **Database:** SQLite.
+* **AI:** Google Gemini API.
+* **Security:** JWT (JSON Web Tokens) & Bcrypt hashing.
 
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+## 🚀 Key Features
 
----
+* **Notion-Style Editor:** Built with the Lexical Framework for a seamless writing experience.
+* **JWT Authentication:** Secure user signup and login flow.
+* **User Isolation:** Users can only view and edit their own personal drafts.
+* **Intelligent Auto-Save:** Custom debouncing algorithm to save changes without spamming the API.
+* **AI Summarization:** One-click summary generation using Google Gemini 2.0.
+* **Responsive UI:** Minimalist design crafted with Tailwind CSS and Lucide icons.
 
-## Core Requirements
+## 📂 Project Structure
 
-### 1. Lexical Editor Setup
+````
+For a detailed breakdown of design decisions, please refer to [ARCHITECTURE.md](./ARCHITECTURE.md).
 
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
+## ⚙️ Setup & Installation
 
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+### 1. Backend Setup (Python FastAPI)
+1.  Navigate to the backend folder:
+    ```bash
+    cd backend
+    ```
+2.  Create and activate a virtual environment:
+    ```bash
+    python -m venv venv
+    # Windows:
+    .\venv\Scripts\activate
+    # Mac/Linux:
+    source venv/bin/activate
+    ```
+3.  Install dependencies:
+    ```bash
+    pip install fastapi uvicorn sqlalchemy pydantic python-jose[cryptography] "passlib[bcrypt]" "bcrypt==3.2.2" google-generativeai
+    ```
+4.  Run the server:
+    ```bash
+    uvicorn main:app --reload
+    ```
 
----
-
-### 2. Table Support
-
-Implement support for tables with the following capabilities:
-
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
-
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
-
----
-
-### 3. Mathematical Expressions
-
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
-
----
-
-### 5. Persistence (Basic)
-
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
-
----
-
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
-
----
-
-## Notes
-
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+### 2. Frontend Setup (React)
+1.  Navigate to the frontend folder:
+    ```bash
+    cd frontend
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the development server:
+    ```bash
+    npm run dev
+    ```
