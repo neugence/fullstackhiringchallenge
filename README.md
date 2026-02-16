@@ -2,6 +2,10 @@
 
 A production-ready, Notion-style blog editor featuring a rich text interface, intelligent auto-saving, and AI-powered content summarization.
 
+## PR Link : https://github.com/neugence/fullstackhiringchallenge/pull/1
+
+## Archtitecture Diagram : frontend\public\Archtitecture_Diagram.png
+
 ## 🛠️ Tech Stack
 
 * **Frontend:** React, Tailwind CSS, Zustand, Lexical.
