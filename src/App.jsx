@@ -14,6 +14,7 @@ function formatSaveTime(timestamp) {
 function App() {
   const posts = useEditorStore((state) => state.posts)
   const currentPostId = useEditorStore((state) => state.currentPostId)
+  const currentTitle = useEditorStore((state) => state.currentTitle)
   const currentEditorState = useEditorStore((state) => state.currentEditorState)
   const isSaving = useEditorStore((state) => state.isSaving)
   const saveError = useEditorStore((state) => state.saveError)
@@ -21,6 +22,7 @@ function App() {
   const setPosts = useEditorStore((state) => state.setPosts)
   const upsertPost = useEditorStore((state) => state.upsertPost)
   const setCurrentPost = useEditorStore((state) => state.setCurrentPost)
+  const setCurrentTitle = useEditorStore((state) => state.setCurrentTitle)
   const setCurrentEditorState = useEditorStore((state) => state.setCurrentEditorState)
 
   const [isBootstrapping, setIsBootstrapping] = useState(true)
@@ -44,8 +46,6 @@ function App() {
     }
     bootstrap()
   }, [setPosts])
-
-  const currentPost = posts.find((post) => post.id === currentPostId)
 
   const createDraft = async () => {
     const draft = await postsApi.createDraft()
@@ -123,7 +123,12 @@ function App() {
 
       <section>
         <div className="mb-3 flex flex-wrap items-center gap-2">
-          <h2 className="mr-auto text-lg font-semibold">{currentPost?.title || 'Untitled draft'}</h2>
+          <input
+            className="mr-auto min-w-[240px] rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-lg font-semibold outline-none focus:border-ember"
+            value={currentTitle}
+            onChange={(event) => setCurrentTitle(event.target.value)}
+            placeholder="Untitled draft"
+          />
           <button className="rounded-lg border border-stone-300 bg-white px-3 py-1.5 text-sm" onClick={generateSummary}>
             Generate Summary
           </button>

@@ -23,6 +23,7 @@ const EMPTY_EDITOR_STATE = {
 export const useEditorStore = create((set, get) => ({
   posts: [],
   currentPostId: null,
+  currentTitle: 'Untitled draft',
   currentEditorState: JSON.stringify(EMPTY_EDITOR_STATE),
   isSaving: false,
   saveError: null,
@@ -35,6 +36,7 @@ export const useEditorStore = create((set, get) => ({
     set({
       posts,
       currentPostId: nextCurrentPost?.id ?? null,
+      currentTitle: nextCurrentPost?.title ?? 'Untitled draft',
       currentEditorState: nextCurrentPost?.content ?? JSON.stringify(EMPTY_EDITOR_STATE),
     })
   },
@@ -57,10 +59,19 @@ export const useEditorStore = create((set, get) => ({
       }
       return {
         currentPostId: post.id,
+        currentTitle: post.title ?? 'Untitled draft',
         currentEditorState: post.content ?? JSON.stringify(EMPTY_EDITOR_STATE),
         saveError: null,
       }
     }),
+
+  setCurrentTitle: (title) =>
+    set((state) => ({
+      currentTitle: title,
+      posts: state.posts.map((post) =>
+        post.id === state.currentPostId ? { ...post, title } : post,
+      ),
+    })),
 
   setCurrentEditorState: (serializedState) =>
     set((state) => ({

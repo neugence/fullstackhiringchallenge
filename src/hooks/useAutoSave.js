@@ -6,6 +6,7 @@ const AUTO_SAVE_DELAY_MS = 1200
 
 export function useAutoSave() {
   const currentPostId = useEditorStore((state) => state.currentPostId)
+  const currentTitle = useEditorStore((state) => state.currentTitle)
   const currentEditorState = useEditorStore((state) => state.currentEditorState)
   const posts = useEditorStore((state) => state.posts)
   const setSaving = useEditorStore((state) => state.setSaving)
@@ -14,12 +15,15 @@ export function useAutoSave() {
   const upsertPost = useEditorStore((state) => state.upsertPost)
 
   const timerRef = useRef(null)
-  const lastSavedStateRef = useRef('')
+  const lastSavedSnapshotRef = useRef({ title: '', content: '' })
   const mountedRef = useRef(false)
 
   useEffect(() => {
     const currentPost = posts.find((post) => post.id === currentPostId)
-    lastSavedStateRef.current = currentPost?.content ?? ''
+    lastSavedSnapshotRef.current = {
+      title: currentPost?.title ?? '',
+      content: currentPost?.content ?? '',
+    }
   }, [currentPostId, posts])
 
   useEffect(() => {
@@ -32,7 +36,10 @@ export function useAutoSave() {
       return
     }
 
-    if (currentEditorState === lastSavedStateRef.current) {
+    if (
+      currentEditorState === lastSavedSnapshotRef.current.content &&
+      currentTitle === lastSavedSnapshotRef.current.title
+    ) {
       return
     }
 
@@ -44,8 +51,14 @@ export function useAutoSave() {
       try {
         setSaving(true)
         setSaveError(null)
-        const updatedPost = await postsApi.update(currentPostId, { content: currentEditorState })
-        lastSavedStateRef.current = updatedPost.content
+        const updatedPost = await postsApi.update(currentPostId, {
+          title: currentTitle || 'Untitled draft',
+          content: currentEditorState,
+        })
+        lastSavedSnapshotRef.current = {
+          title: updatedPost.title,
+          content: updatedPost.content,
+        }
         upsertPost(updatedPost)
         setSavedAt(new Date().toISOString())
       } catch (error) {
@@ -62,6 +75,7 @@ export function useAutoSave() {
     }
   }, [
     currentEditorState,
+    currentTitle,
     currentPostId,
     setSaveError,
     setSavedAt,
