@@ -1,0 +1,44 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+.editor-input {
+  caret-color: #a78bfa;
+}
+
+/* Smooth selection color */
+.editor-input::selection {
+  background: rgba(167, 139, 250, 0.25);
+}
+
+.toolbar-btn {
+  @apply relative flex items-center justify-center 
+  w-9 h-9 rounded-lg 
+  bg-neutral-800/80 text-neutral-200 
+  border border-neutral-700 
+  transition-all duration-200
+  hover:bg-neutral-700 hover:shadow-md hover:shadow-violet-500/10
+  active:scale-95;
+}
+
+.active-btn {
+  @apply bg-violet-500/20 border-violet-400/40 text-violet-300 shadow-sm shadow-violet-500/20;
+}
+
+.editor-input {
+  caret-color: #a78bfa;
+}
+
+.editor-input::selection {
+  background: rgba(167, 139, 250, 0.25);
+}
+
+.input {
+  @apply w-full p-2 rounded-lg bg-neutral-800 border border-neutral-700 outline-none;
+}
+
+.btn-primary {
+  @apply bg-violet-500 hover:bg-violet-600 transition rounded-lg p-2;
+}
+
