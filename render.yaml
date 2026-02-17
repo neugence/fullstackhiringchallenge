@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: smart-blog-editor-api
+    runtime: python
+    buildCommand: pip install -r backend/requirements.txt
+    startCommand: bash start.sh
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.9
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false

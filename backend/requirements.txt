@@ -1,0 +1,27 @@
+# FastAPI Backend Requirements
+
+# Core Framework
+fastapi==0.109.0
+uvicorn[standard]==0.27.0
+python-dotenv==1.0.1
+
+# Async MongoDB Driver
+motor==3.3.2
+
+# Authentication & Security
+python-jose[cryptography]==3.3.0
+passlib[bcrypt]==1.7.4
+bcrypt==4.0.1
+python-multipart==0.0.6
+
+# Validation
+pydantic==2.5.3
+pydantic-settings==2.1.0
+email-validator==2.1.0
+
+# AI Integration
+google-generativeai==0.3.2
+aiohttp==3.9.1
+
+# Additional
+pymongo==4.6.1

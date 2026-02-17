@@ -1,0 +1,177 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(-100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes purpleGlow {
+  0%, 100% {
+    box-shadow: 0 0 0 rgba(147, 51, 234, 0);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(147, 51, 234, 0.3), 0 0 80px rgba(147, 51, 234, 0.2);
+  }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.3s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.editor-purple-glow {
+  animation: purpleGlow 2s ease-in-out;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  @apply bg-gray-50;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/* Lexical Editor Styles */
+.editor-container {
+  @apply bg-white rounded-lg;
+}
+
+.editor-input {
+  @apply min-h-[450px] outline-none text-gray-800 leading-relaxed;
+  font-family: 'Georgia', 'Cambria', 'Times New Roman', serif;
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+@media (min-width: 640px) {
+  .editor-input {
+    font-size: 1.125rem;
+  }
+}
+
+.editor-paragraph {
+  @apply mb-4 text-gray-800;
+}
+
+.editor-heading-h1 {
+  @apply font-bold mb-4 sm:mb-6 mt-6 sm:mt-8 text-gray-900;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 2rem;
+}
+
+@media (min-width: 640px) {
+  .editor-heading-h1 {
+    font-size: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editor-heading-h1 {
+    font-size: 3rem;
+  }
+}
+
+.editor-heading-h2 {
+  @apply font-bold mb-4 sm:mb-5 mt-5 sm:mt-7 text-gray-900;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 1.75rem;
+}
+
+@media (min-width: 640px) {
+  .editor-heading-h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editor-heading-h2 {
+    font-size: 2.5rem;
+  }
+}
+
+.editor-heading-h3 {
+  @apply font-bold mb-3 sm:mb-4 mt-4 sm:mt-6 text-gray-900;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+  font-size: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .editor-heading-h3 {
+    font-size: 1.75rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .editor-heading-h3 {
+    font-size: 2rem;
+  }
+}
+
+.editor-list-ol {
+  @apply list-decimal ml-8 mb-4 space-y-2 text-gray-800;
+}
+
+.editor-list-ul {
+  @apply list-disc ml-8 mb-4 space-y-2 text-gray-800;
+}
+
+.editor-listitem {
+  @apply mb-2 pl-2;
+}
+
+.editor-text-bold {
+  @apply font-bold text-gray-900;
+}
+
+.editor-text-italic {
+  @apply italic;
+}
+
+.editor-text-underline {
+  @apply underline decoration-2;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  @apply w-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-400;
+}
