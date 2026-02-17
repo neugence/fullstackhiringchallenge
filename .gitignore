@@ -1,0 +1,51 @@
+# --- OS Specific ---
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# --- Environment / Secrets (CRITICAL) ---
+.env
+.env.local
+.env.*.local
+*.env
+auth_key.json
+
+# --- Frontend (Node/Vite/TypeScript) ---
+node_modules/
+dist/
+dist-ssr/
+.vite/
+.eslintcache
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# --- Backend (Python/FastAPI) ---
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+ENV/
+# This covers your specific 'source' folder if it's a venv
+backend/source/
+*.egg-info/
+.pytest_cache/
+.coverage
+htmlcov/
+.mypy_cache/
+
+# --- Database ---
+*.sqlite
+*.db
+data/
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln

@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Fraunces", ui-serif, Georgia, serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+
+  --color-canvas: var(--bg-canvas);
+  --color-panel: var(--bg-panel);
+  --color-ink: var(--text-ink);
+  --color-muted: var(--text-muted);
+  --color-line: var(--border-light);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+
+  /* Premium Shadows */
+  --shadow-float: 0 12px 32px -4px rgba(0, 0, 0, 0.08), 0 4px 12px -2px rgba(0, 0, 0, 0.04);
+  --shadow-pill: 0 2px 8px -1px rgba(0, 0, 0, 0.08);
+}
+
+@layer base {
+  :root {
+    --bg-canvas: #FCFCFA;
+    --bg-panel: #F4F4F0;
+    --text-ink: #2A2A28;
+    --text-muted: #8B8A85;
+    --border-light: #E6E6E2;
+    --color-accent: #E25F38;
+    --color-accent-hover: #C84D29;
+    --shimmer-color: rgba(226, 95, 56, 0.1);  
+  }
+
+  .dark {
+    --shimmer-color: rgba(232, 122, 93, 0.2);  
+    --bg-canvas: #1C1C1A;
+    --bg-panel: #242422;
+    --text-ink: #EBEBEA;
+    --text-muted: #A1A19D;
+    --border-light: #3A3A38;
+    --color-accent: #E87A5D;
+    --color-accent-hover: #FF9B82;
+  }
+
+  body {
+    @apply bg-canvas text-ink font-sans antialiased transition-colors duration-300 ease-in-out;
+  }
+}.custom-scrollbar::-webkit-scrollbar {
+  width: 4px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 10px;
+}
+.custom-scrollbar:hover::-webkit-scrollbar-thumb {
+  background: var(--border-light);
+}
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  animation: shimmer 2s infinite linear;
+  background-image: linear-gradient(
+    90deg, 
+    transparent, 
+    var(--shimmer-color), 
+    transparent
+  );
+  background-size: 200% 100%;
+}
