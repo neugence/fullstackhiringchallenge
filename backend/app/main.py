@@ -113,6 +113,15 @@ def publish_post(post_id: int, db: Session = Depends(get_db)) -> Post:
     return post
 
 
+@app.delete("/api/posts/{post_id}", status_code=204)
+def delete_post(post_id: int, db: Session = Depends(get_db)) -> None:
+    post = db.query(Post).filter(Post.id == post_id).first()
+    if post is None:
+        raise HTTPException(status_code=404, detail="Post not found")
+    db.delete(post)
+    db.commit()
+
+
 @app.post("/api/ai/generate", response_model=AIGenerateResponse)
 def generate_with_ai(payload: AIGenerateRequest) -> AIGenerateResponse:
     plain_text = lexical_json_to_text(payload.content)

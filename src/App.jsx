@@ -61,6 +61,17 @@ function App() {
     upsertPost(published)
   }
 
+  const deletePost = async (id) => {
+    await postsApi.remove(id)
+    const remainingPosts = await postsApi.list()
+    if (remainingPosts.length === 0) {
+      const draft = await postsApi.createDraft()
+      setPosts([draft])
+      return
+    }
+    setPosts(remainingPosts)
+  }
+
   const generateSummary = async () => {
     if (!currentEditorState) {
       return
@@ -85,17 +96,26 @@ function App() {
         <ul className="space-y-2">
           {posts.map((post) => (
             <li key={post.id}>
-              <button
-                className={`w-full rounded-lg border px-3 py-2 text-left text-sm ${
+              <div
+                className={`flex items-center gap-2 rounded-lg border px-2 py-2 ${
                   post.id === currentPostId
-                    ? 'border-ember bg-orange-50 text-ember'
+                    ? 'border-ember bg-orange-50'
                     : 'border-stone-200 hover:border-stone-300'
                 }`}
-                onClick={() => setCurrentPost(post.id)}
               >
-                <p className="truncate font-medium">{post.title || 'Untitled draft'}</p>
-                <p className="text-xs text-stone-500">{post.status}</p>
-              </button>
+                <button className="min-w-0 flex-1 text-left text-sm" onClick={() => setCurrentPost(post.id)}>
+                  <p className={`truncate font-medium ${post.id === currentPostId ? 'text-ember' : ''}`}>
+                    {post.title || 'Untitled draft'}
+                  </p>
+                  <p className="text-xs text-stone-500">{post.status}</p>
+                </button>
+                <button
+                  className="rounded border border-stone-300 px-2 py-1 text-xs text-stone-600 hover:border-red-400 hover:text-red-600"
+                  onClick={() => deletePost(post.id)}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>

@@ -30,6 +30,10 @@ export const postsApi = {
     request(`/posts/${id}/publish`, {
       method: 'POST',
     }),
+  remove: (id) =>
+    request(`/posts/${id}`, {
+      method: 'DELETE',
+    }),
   generateSummary: (content) =>
     request('/ai/generate', {
       method: 'POST',
