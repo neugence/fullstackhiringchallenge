@@ -1,98 +1,85 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# Neugence Full Stack Assignment Solution
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+This repository contains a full-stack "smart blog editor" implementation with:
+- React + Lexical + Zustand + Tailwind frontend
+- FastAPI + SQLite backend
+- Debounced autosave
+- Draft/publish workflow
+- Basic AI summary endpoint
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+## Setup Instructions
 
----
+### 1) Frontend
+```bash
+npm install
+npm run dev
+```
+Frontend runs at `http://localhost:5173`.
 
-## Task Overview
+### 2) Backend
+```bash
+cd backend
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+Backend runs at `http://127.0.0.1:8000`.
 
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
+### 3) API Base URL (optional)
+Create `.env` in project root if needed:
+```bash
+VITE_API_BASE_URL=http://127.0.0.1:8000/api
+```
 
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+## Features
 
----
+- Lexical rich text editor with modular plugin architecture
+- Basic formatting: bold, italic, headings, ordered/unordered lists
+- Table insertion (`3x3`) via toolbar
+- Editable LaTeX math expressions using KaTeX
+- Zustand global store for:
+  - Draft list state
+  - Current post and serialized editor state
+  - Save lifecycle state (`isSaving`, `saveError`, `lastSavedAt`)
+- Draft and publish status lifecycle
+- Basic AI summary action (`/api/ai/generate`)
 
-## Core Requirements
+## Auto-Save Logic
 
-### 1. Lexical Editor Setup
+Autosave is implemented with a custom debounce hook in `src/hooks/useAutoSave.js`.
 
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
+- Every Lexical change is serialized to JSON and placed into Zustand
+- A 1200ms debounce timer starts on content changes
+- New keystrokes reset the timer
+- When the timer completes, the app sends `PATCH /api/posts/{id}`
+- Redundant saves are skipped by comparing with the last successfully saved state
 
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+This avoids API spam while still keeping edits safe quickly.
 
----
+## Database Schema Choice
 
-### 2. Table Support
+SQLite schema (`backend/app/models.py`) stores:
+- `id` (PK)
+- `title`
+- `content` (TEXT, Lexical serialized JSON string)
+- `status` (`draft` or `published`)
+- `created_at`
+- `updated_at`
 
-Implement support for tables with the following capabilities:
+Why this schema:
+- Lexical JSON is preserved exactly, so editor state can be restored without lossy HTML conversions
+- Status and timestamps support product features like publishing flows, sorting, and auditability
+- SQLite keeps setup simple for assignment while matching production-style separation of concerns
 
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
+## API Surface
 
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
+- `POST /api/posts/` create draft
+- `GET /api/posts/` list posts
+- `PATCH /api/posts/{id}` update draft content/title
+- `POST /api/posts/{id}/publish` publish a post
+- `POST /api/ai/generate` mock AI summary endpoint
 
----
+## Architecture Notes
 
-### 3. Mathematical Expressions
-
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
-
----
-
-### 5. Persistence (Basic)
-
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
-
----
-
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
-
----
-
-## Notes
-
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+Detailed LLD/HLD notes are in `ARCHITECTURE.md`.

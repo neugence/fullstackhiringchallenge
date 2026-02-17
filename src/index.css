@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import 'katex/dist/katex.min.css';
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  @apply min-h-screen bg-sand text-ink;
+}
+
+#root {
+  @apply min-h-screen;
+}
+
+.editor-input {
+  @apply min-h-[380px] rounded-b-2xl border border-stone-200 bg-white px-6 py-5 text-[15px] leading-7 shadow-card outline-none;
+}
+
+.editor-input h1 {
+  @apply mb-4 mt-6 text-3xl font-semibold;
+}
+
+.editor-input h2 {
+  @apply mb-4 mt-5 text-2xl font-semibold;
+}
+
+.editor-input ul,
+.editor-input ol {
+  @apply my-4 pl-7;
+}
+
+.editor-input td,
+.editor-input th {
+  @apply border border-stone-300 p-2 align-top;
+}
+
+.math-node {
+  @apply inline-flex cursor-pointer items-center rounded-md border border-amber-200 bg-amber-50 px-2 py-1;
+}
