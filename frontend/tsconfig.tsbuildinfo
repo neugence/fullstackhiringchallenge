@@ -1,0 +1,1 @@
+{"root":["./src/App.tsx","./src/main.tsx","./src/types.ts","./src/vite-env.d.ts","./src/components/AuthForm.tsx","./src/components/BlockEditor.tsx","./src/components/DraftSidebar.tsx","./src/components/EditorToolbar.tsx","./src/hooks/useDebouncedAutosave.ts","./src/lib/api.ts","./src/store/authStore.ts","./src/store/editorStore.ts"],"version":"5.9.3"}
