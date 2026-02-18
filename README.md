@@ -8,9 +8,9 @@ This project demonstrates scalable component design, efficient state handling, a
 
 ## 🌐 Deliverables
 
-- **Live Demo:** https://your-vercel-link.vercel.app  
-- **Backend API:** https://your-backend-link.onrender.com  
-- **Architecture Diagram:** https://your-architecture-link  
+ **Live Demo:** https://your-vercel-link.vercel.app  
+ **Backend API:** https://your-backend-link.onrender.com  
+ **Architecture Diagram:** https://your-architecture-link  
 
 > Replace the above placeholder links with your actual deployed URLs.
 
@@ -19,14 +19,14 @@ This project demonstrates scalable component design, efficient state handling, a
 ## 🛠️ Tech Stack
 
 ### Frontend
-- React.js  
-- Tailwind CSS  
-- Lexical (Rich Text Framework)  
-- Zustand (Global State Management)
+ React.js  
+ Tailwind CSS  
+ Lexical (Rich Text Framework)  
+ Zustand (Global State Management)
 
 ### Backend
-- Python (FastAPI)  
-- MongoDB  
+ Python (FastAPI)  
+ MongoDB  
 
 ### AI Integration
 - Google Gemini API (Content Summarization)
@@ -41,20 +41,20 @@ To ensure optimal performance and prevent excessive API calls, I implemented a c
 
 #### Problem
 Saving on every keystroke can generate hundreds of API requests per minute, leading to:
-- Backend overload  
-- Poor performance  
-- Unnecessary database writes  
+ Backend overload  
+ Poor performance  
+ Unnecessary database writes  
 
 #### Solution
 The `LexicalAutoSavePlugin`:
-- Uses a `useRef`-based timer
-- Resets the timer on every content change
-- Triggers a `PATCH` request only after **2000ms (2 seconds)** of user inactivity
+ Uses a `useRef`-based timer
+ Resets the timer on every content change
+ Triggers a `PATCH` request only after **2000ms (2 seconds)** of user inactivity
 
 This ensures:
-- Reduced server load  
-- Smooth user experience  
-- Efficient persistence  
+ Reduced server load
+ Smooth user experience  
+ Efficient persistence  
 
 ---
 
@@ -63,10 +63,10 @@ This ensures:
 Instead of storing raw HTML (which introduces security risks and formatting inconsistencies), the editor stores the **Lexical JSON State Tree**.
 
 #### Benefits
-- Accurate reconstruction of editor state
-- Portable content format
-- Future-ready for mobile or alternative rendering engines
-- Cleaner separation between data and presentation
+ Accurate reconstruction of editor state
+ Portable content format
+ Future-ready for mobile or alternative rendering engines
+ Cleaner separation between data and presentation
 
 ---
 
@@ -75,24 +75,24 @@ Instead of storing raw HTML (which introduces security risks and formatting inco
 Zustand was selected for its simplicity and minimal boilerplate.
 
 It manages:
-- Current post metadata
-- Sync status ("Saving..." vs "Saved")
-- Global editor-related state
+Current post metadata
+Sync status ("Saving..." vs "Saved")
+ Global editor-related state
 
 #### Why Zustand?
-- Lightweight compared to Redux
-- Minimal re-renders
-- Clear separation of UI state and editor state
-- Cleaner developer experience
+Lightweight compared to Redux
+ Minimal re-renders
+Clear separation of UI state and editor state
+Cleaner developer experience
 
 ---
 
 ### 4️⃣ AI-Powered Summarization
 
 Integrated Google Gemini API to:
-- Generate summaries from editor content
-- Provide intelligent content assistance
-- Demonstrate external API integration capability
+ Generate summaries from editor content
+ Provide intelligent content assistance
+Demonstrate external API integration capability
 
 The AI service is modularized in the backend for scalability.
 
