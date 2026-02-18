@@ -1,98 +1,182 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+#  Smart Blog Editor (Auto-Save Draft System)
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+This project is a Notion/Medium-style blog editor that supports rich text editing and intelligent auto-save of drafts using a debounced mechanism.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
-
----
-
-## Task Overview
-
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
-
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+The goal of this project is to demonstrate frontend state management, backend API design, and async optimization logic.
 
 ---
 
-## Core Requirements
+## Tech Stack
 
-### 1. Lexical Editor Setup
+Frontend: React, Lexical, Zustand, Tailwind CSS 
 
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
+Backend: FastAPI  
 
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+Database: SQLite
 
----
+## Demo Video
 
-### 2. Table Support
+Loom Link: 
 
-Implement support for tables with the following capabilities:
+https://www.loom.com/share/8e7df2b40e8e42ff93bde344f4d7c54b
 
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
 
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
 
----
+##  Features
 
-### 3. Mathematical Expressions
+### Frontend
+- Rich text editor built using Lexical
+- Supports:
+  - Bold
+  - Italic
+  - Headings (H1, H2, H3)
+  - Bullet lists
+- Global state management using Zustand
+- Clean, minimal UI styled with Tailwind CSS
+- Auto-save drafts without spamming the backend
 
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
+### Backend
+- REST APIs built using FastAPI
+- SQLite database for persistence
+- Draft vs Published post status
+- Stores Lexical JSON state directly (no HTML conversion)
 
 ---
 
-### 4. State Management
+## Auto-Save Logic
 
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
+### Problem
+Saving data on every keystroke is inefficient and overloads the server.
 
-We are more interested in **state modeling decisions** than overall complexity.
+### Solution: Debouncing
+A debounced auto-save mechanism is implemented:
 
----
+- Editor state updates on every change
+- Auto-save is delayed by 2 seconds
+- Save is triggered only after the user stops typing
 
-### 5. Persistence (Basic)
+### Why Debounce?
+- Prevents unnecessary API calls
+- Optimizes async behavior
+- Improves performance and scalability
 
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
+### Implementation (simplified)
 
----
+```js
+export function debounce(fn, delay) {
+  let timer;
+  return (...args) => {
+    clearTimeout(timer);
+    timer = setTimeout(() => fn(...args), delay);
+  };
+}
+```
 
-## Architecture & Design Expectations
+This function delays PATCH requests to the backend until the user stops typing.
 
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
+## Database Design
 
-A **simple README** explaining your design decisions is required.
+### Database: SQLite
 
----
+Chosen because:
 
-## Notes
+1. Lightweight
 
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+2. File-based
+
+3. No external setup required
+
+4. Ideal for prototypes and demos
+
+
+### Schema: posts
+
+| Column      | Type     | Description                     |
+|-------------|----------|---------------------------------|
+| id          | Integer  | Primary Key                     |
+| content     | TEXT     | Lexical JSON editor state       |
+| status      | String   | draft or published              |
+| created_at  | DateTime | Creation timestamp              |
+| updated_at  | DateTime | Last updated timestamp          |
+
+
+Why store Lexical JSON?
+
+1. Preserves formatting
+
+2. Allows perfect restoration on reload
+
+3. Avoids lossy HTML conversions
+
+## 🔄 Backend APIs
+
+| Method | Endpoint                  | Description           |
+|-------:|---------------------------|-----------------------|
+| POST   | /api/posts                | Create new draft      |
+| GET    | /api/posts/{id}           | Load post on refresh  |
+| PATCH  | /api/posts/{id}           | Auto-save content     |
+| POST   | /api/posts/{id}/publish   | Publish post          |
+
+## System Architecture
+
+### High-Level Flow
+
+Frontend (React + Lexical + Zustand)
+
+↓
+
+Debounced Auto-Save Logic (2s delay)
+
+↓
+
+FastAPI REST APIs
+
+↓
+
+SQLite Database (blog.db)
+
+##  Local Setup Instructions
+
+### Backend
+
+cd blog-backend
+
+python -m venv venv
+
+venv\Scripts\activate
+
+pip install -r requirements.txt
+
+python -m uvicorn main:app --reload
+
+
+Backend runs at: http://127.0.0.1:8000
+
+### Frontend
+cd blog-frontend
+
+npm install
+
+npm run dev
+
+Frontend runs at: http://localhost:5173
+
+##  Notes
+
+After publishing, the post becomes read-only (intentional design choice).
+
+The focus of this project is architecture, async logic, and state management.
+
+UI is kept minimal to emphasize functionality.
+
+##  Conclusion
+
+This project demonstrates:
+
+Clean frontend–backend separation
+
+Intelligent auto-save using debouncing
+
+Proper global state management
+
+Practical database and system design choices
