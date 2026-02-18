@@ -8,11 +8,8 @@ This project demonstrates scalable component design, efficient state handling, a
 
 ## 🌐 Deliverables
 
- **Live Demo:** https://your-vercel-link.vercel.app  
- **Backend API:** https://your-backend-link.onrender.com  
- **Architecture Diagram:** https://your-architecture-link  
-
-> Replace the above placeholder links with your actual deployed URLs.
+ **Live Demo:** fullstackhiringchallenge-nine.vercel.app
+ **Backend API:** - **Backend API:** Runs locally (not deployed) 
 
 ---
 
