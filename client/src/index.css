@@ -1,0 +1,74 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900;
+  }
+}
+
+/* Lexical Editor Styles */
+.editor-content {
+  @apply min-h-[300px] p-4 outline-none;
+}
+
+.editor-content:focus {
+  @apply outline-none;
+}
+
+.editor-paragraph {
+  @apply mb-2;
+}
+
+.editor-heading-h1 {
+  @apply text-3xl font-bold mb-4;
+}
+
+.editor-heading-h2 {
+  @apply text-2xl font-bold mb-3;
+}
+
+.editor-heading-h3 {
+  @apply text-xl font-semibold mb-2;
+}
+
+.editor-text-bold {
+  @apply font-bold;
+}
+
+.editor-text-italic {
+  @apply italic;
+}
+
+.editor-text-underline {
+  @apply underline;
+}
+
+/* Toolbar Styles */
+.toolbar-btn {
+  @apply px-3 py-1.5 rounded hover:bg-gray-200 transition-colors;
+}
+
+.toolbar-btn.active {
+  @apply bg-blue-100 text-blue-600;
+}
+
+/* Sidebar Styles */
+.sidebar-item {
+  @apply p-2 hover:bg-gray-100 rounded cursor-pointer transition-colors;
+}
+
+.sidebar-item.active {
+  @apply bg-blue-50 border-l-2 border-blue-500;
+}
+
+/* Editor Container */
+.editor-container {
+  @apply flex-1 flex flex-col bg-white rounded-lg shadow-sm border border-gray-200 overflow-hidden;
+}
+
+/* Saving Indicator */
+.saving-indicator {
+  @apply text-sm text-gray-500 animate-pulse;
+}

@@ -1,0 +1,36 @@
+/* App.css - Professional Typography */
+
+.editor-paragraph {
+  margin-bottom: 1.25rem;
+  line-height: 1.8;
+  font-size: 1.125rem;
+}
+
+.editor-heading-h1 {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+  letter-spacing: -0.025em;
+}
+
+.editor-heading-h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+
+/* Custom selection color */
+::selection {
+  background-color: #e0e7ff;
+  color: #4338ca;
+}
+
+/* Smooth scroll for the whole app */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+}
