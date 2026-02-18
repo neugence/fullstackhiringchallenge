@@ -1,0 +1,114 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 font-sans antialiased;
+  }
+}
+
+@layer components {
+
+  /* Editor Styles */
+  .editor-container {
+    @apply min-h-screen max-w-4xl mx-auto px-6 py-8;
+  }
+
+  .editor-input {
+    @apply min-h-[400px] outline-none text-gray-900 caret-primary;
+  }
+
+  .editor-placeholder {
+    @apply text-gray-400 overflow-hidden absolute text-ellipsis top-0 left-0 select-none inline-block pointer-events-none;
+  }
+
+  /* Toolbar Styles */
+  .toolbar {
+    @apply sticky top-0 z-10 bg-white border-b border-gray-200 px-4 py-2 flex items-center gap-2 shadow-sm;
+  }
+
+  .toolbar-button {
+    @apply px-3 py-1.5 rounded-md text-sm font-medium text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors;
+  }
+
+  .toolbar-button.active {
+    @apply bg-primary text-white hover:bg-primary-dark;
+  }
+
+  /* Auto-save Indicator */
+  .save-indicator {
+    @apply fixed top-4 right-4 px-3 py-1.5 rounded-full text-xs font-medium shadow-md transition-all;
+  }
+
+  .save-indicator.saving {
+    @apply bg-yellow-100 text-yellow-800;
+  }
+
+  .save-indicator.saved {
+    @apply bg-green-100 text-green-800;
+  }
+
+  /* Post Card */
+  .post-card {
+    @apply bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow cursor-pointer;
+  }
+
+  /* Button Variants */
+  .btn {
+    @apply px-4 py-2 rounded-lg font-medium transition-all focus:outline-none focus:ring-2 focus:ring-offset-2;
+  }
+
+  .btn-primary {
+    @apply bg-primary text-white hover:bg-primary-dark focus:ring-primary;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-200 text-gray-900 hover:bg-gray-300 focus:ring-gray-400;
+  }
+
+  .btn-danger {
+    @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+  }
+}
+
+/* Lexical Editor Specific Styles */
+.editor-text-bold {
+  font-weight: bold;
+}
+
+.editor-text-italic {
+  font-style: italic;
+}
+
+.editor-text-underline {
+  text-decoration: underline;
+}
+
+.editor-heading-h1 {
+  @apply text-4xl font-bold mt-8 mb-4;
+}
+
+.editor-heading-h2 {
+  @apply text-3xl font-bold mt-6 mb-3;
+}
+
+.editor-heading-h3 {
+  @apply text-2xl font-bold mt-4 mb-2;
+}
+
+.editor-list-ol {
+  @apply list-decimal ml-6 my-4;
+}
+
+.editor-list-ul {
+  @apply list-disc ml-6 my-4;
+}
+
+.editor-listitem {
+  @apply my-2;
+}
+
+.editor-paragraph {
+  @apply my-2 text-base leading-relaxed;
+}
