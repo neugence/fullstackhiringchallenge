@@ -1,45 +1,115 @@
 # 🚀 Smart Blog Editor (Internship Assignment)
 
-A production-ready, Notion-style block editor featuring real-time auto-save logic, robust state management, and AI-powered capabilities.
+A production-ready, Notion-style rich text editor built with modern frontend architecture, real-time auto-save logic, structured state management, and AI-powered summarization capabilities.
+
+This project demonstrates scalable component design, efficient state handling, and clean integration of third-party libraries.
+
+---
 
 ## 🌐 Deliverables
-- **Live Demo:** [PASTE YOUR VERCEL/NETLIFY LINK HERE]
-- **Backend API:** [PASTE YOUR RENDER/RAILWAY LINK HERE]
-- **Architecture Diagram:** [PASTE LINK TO IMAGE OR EXCALIDRAW HERE]
+
+- **Live Demo:** https://your-vercel-link.vercel.app  
+- **Backend API:** https://your-backend-link.onrender.com  
+- **Architecture Diagram:** https://your-architecture-link  
+
+> Replace the above placeholder links with your actual deployed URLs.
 
 ---
 
 ## 🛠️ Tech Stack
-- **Frontend:** React.js, Tailwind CSS, Zustand (State Management), Lexical (Rich Text Framework).
-- **Backend:** Python (FastAPI), MongoDB (Database).
-- **AI:** Google Gemini API (for summarization).
+
+### Frontend
+- React.js  
+- Tailwind CSS  
+- Lexical (Rich Text Framework)  
+- Zustand (Global State Management)
+
+### Backend
+- Python (FastAPI)  
+- MongoDB  
+
+### AI Integration
+- Google Gemini API (Content Summarization)
 
 ---
 
-## ✨ Key Features & Logic
+## ✨ Key Features & Architectural Decisions
 
-### 1. Intelligent Auto-Save (Debouncing Algorithm)
-To ensure system performance and avoid unnecessary API spamming, I implemented a **custom Debouncing Algorithm**. 
-- **The Challenge:** Saving on every keystroke causes hundreds of requests per minute.
-- **The Solution:** The `LexicalAutoSavePlugin` uses a `useRef` timer. It resets every time the user types. The `PATCH` request to the backend only triggers after the user has stopped typing for exactly **2000ms (2 seconds)**.
+### 1️⃣ Intelligent Auto-Save (Custom Debouncing Algorithm)
 
-### 2. Lexical State Management
-Instead of storing content as raw HTML (which is prone to security risks and formatting errors), this editor stores the **Lexical JSON State Tree**. 
-- **Benefit:** This allows for perfect re-loading of the block structure and makes the data portable for future mobile app versions or different rendering engines.
+To ensure optimal performance and prevent excessive API calls, I implemented a custom **debounced auto-save mechanism**.
 
-### 3. Global State with Zustand
-I chose **Zustand** for its minimalist boilerplate. It handles the current post's metadata and the global "Sync Status" (Saving vs. Saved) across the Sidebar and Editor components without complex Redux logic.
+#### Problem
+Saving on every keystroke can generate hundreds of API requests per minute, leading to:
+- Backend overload  
+- Poor performance  
+- Unnecessary database writes  
+
+#### Solution
+The `LexicalAutoSavePlugin`:
+- Uses a `useRef`-based timer
+- Resets the timer on every content change
+- Triggers a `PATCH` request only after **2000ms (2 seconds)** of user inactivity
+
+This ensures:
+- Reduced server load  
+- Smooth user experience  
+- Efficient persistence  
+
+---
+
+### 2️⃣ Structured Lexical State Management
+
+Instead of storing raw HTML (which introduces security risks and formatting inconsistencies), the editor stores the **Lexical JSON State Tree**.
+
+#### Benefits
+- Accurate reconstruction of editor state
+- Portable content format
+- Future-ready for mobile or alternative rendering engines
+- Cleaner separation between data and presentation
+
+---
+
+### 3️⃣ Global State Management with Zustand
+
+Zustand was selected for its simplicity and minimal boilerplate.
+
+It manages:
+- Current post metadata
+- Sync status ("Saving..." vs "Saved")
+- Global editor-related state
+
+#### Why Zustand?
+- Lightweight compared to Redux
+- Minimal re-renders
+- Clear separation of UI state and editor state
+- Cleaner developer experience
+
+---
+
+### 4️⃣ AI-Powered Summarization
+
+Integrated Google Gemini API to:
+- Generate summaries from editor content
+- Provide intelligent content assistance
+- Demonstrate external API integration capability
+
+The AI service is modularized in the backend for scalability.
 
 ---
 
 ## 📂 Project Structure
+
 ```text
-├── client/                 # React Frontend
-│   ├── src/components/     # Editor, Toolbar, Sidebar
-│   ├── src/store/          # Zustand Store
-│   ├── src/plugins/        # Lexical Plugins (AutoSave)
-│   └── src/hooks/          # useDebouncedCallback
-├── server/                 # Python Backend
-│   ├── main.py             # FastAPI Routes
-│   ├── models.py           # Pydantic Schemas
-│   └── ai_service.py       # AI Integration
+├── client/                        # React Frontend
+│   ├── src/components/            # Editor, Toolbar, Sidebar
+│   ├── src/store/                 # Zustand Store
+│   ├── src/plugins/               # Lexical Plugins (AutoSave)
+│   ├── src/hooks/                 # Custom Hooks (Debounce)
+│   └── src/utils/                 # Utility Functions
+│
+├── server/                        # Python Backend (FastAPI)
+│   ├── main.py                    # API Routes
+│   ├── models.py                  # Pydantic Schemas
+│   ├── database.py                # MongoDB Connection
+│   └── ai_service.py              # AI Integration Layer
