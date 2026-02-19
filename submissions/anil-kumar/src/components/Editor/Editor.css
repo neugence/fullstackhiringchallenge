@@ -1,0 +1,366 @@
+/* editor shell */
+.editor-shell {
+    display: flex;
+    flex-direction: column;
+    max-width: 900px;
+    width: 100%;
+    margin: 0 auto;
+    background: #1a1a2e;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 16px;
+    overflow: hidden;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.03),
+        0 24px 64px rgba(0, 0, 0, 0.4),
+        0 8px 24px rgba(0, 0, 0, 0.2);
+}
+
+.editor-container {
+    position: relative;
+    flex: 1;
+}
+
+.editor-scroller {
+    min-height: 500px;
+    max-height: 75vh;
+    overflow-y: auto;
+    resize: vertical;
+}
+
+.editor-scroller::-webkit-scrollbar {
+    width: 6px;
+}
+
+.editor-scroller::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.editor-scroller::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.editor-inner {
+    position: relative;
+    padding: 32px 48px;
+    min-height: 500px;
+}
+
+/* the actual content-editable area */
+.editor-content {
+    outline: none;
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    line-height: 1.75;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    caret-color: #a78bfa;
+    min-height: 400px;
+}
+
+.editor-placeholder {
+    position: absolute;
+    top: 32px;
+    left: 48px;
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 16px;
+    line-height: 1.75;
+    pointer-events: none;
+    user-select: none;
+}
+
+/* text formatting classes */
+.editor-text-bold {
+    font-weight: 700;
+}
+
+.editor-text-italic {
+    font-style: italic;
+}
+
+.editor-text-underline {
+    text-decoration: underline;
+    text-underline-offset: 2px;
+}
+
+.editor-text-strikethrough {
+    text-decoration: line-through;
+}
+
+.editor-text-underlineStrikethrough {
+    text-decoration: underline line-through;
+}
+
+.editor-text-code {
+    background: rgba(139, 92, 246, 0.12);
+    border: 1px solid rgba(139, 92, 246, 0.2);
+    border-radius: 4px;
+    padding: 1px 6px;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 0.9em;
+    color: #c4b5fd;
+}
+
+/* headings & paragraphs */
+.editor-paragraph {
+    margin: 0 0 12px 0;
+}
+
+.editor-heading-h1 {
+    font-size: 2em;
+    font-weight: 800;
+    color: #fff;
+    margin: 24px 0 16px;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+}
+
+.editor-heading-h2 {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.95);
+    margin: 20px 0 12px;
+    line-height: 1.3;
+}
+
+.editor-heading-h3 {
+    font-size: 1.25em;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    margin: 16px 0 10px;
+    line-height: 1.4;
+}
+
+/* blockquote */
+.editor-quote {
+    margin: 16px 0;
+    padding: 12px 20px;
+    border-left: 4px solid #8b5cf6;
+    background: rgba(139, 92, 246, 0.06);
+    border-radius: 0 8px 8px 0;
+    color: rgba(255, 255, 255, 0.75);
+    font-style: italic;
+}
+
+/* lists */
+.editor-list-ul,
+.editor-list-ol {
+    margin: 8px 0;
+    padding-left: 24px;
+}
+
+.editor-listitem {
+    margin: 4px 0;
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.editor-nested-listitem {
+    list-style-type: none;
+}
+
+.editor-list-ul .editor-listitem::marker {
+    color: #8b5cf6;
+}
+
+.editor-list-ol .editor-listitem::marker {
+    color: #a78bfa;
+    font-weight: 600;
+}
+
+/* code block */
+.editor-code {
+    background: rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    padding: 16px 20px;
+    margin: 16px 0;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    overflow-x: auto;
+    tab-size: 2;
+}
+
+/* syntax highlighting tokens */
+.editor-tokenComment {
+    color: #6a9955;
+}
+
+.editor-tokenPunctuation {
+    color: #d4d4d4;
+}
+
+.editor-tokenProperty {
+    color: #b5cea8;
+}
+
+.editor-tokenSelector {
+    color: #ce9178;
+}
+
+.editor-tokenOperator {
+    color: #d4d4d4;
+}
+
+.editor-tokenAttr {
+    color: #c586c0;
+}
+
+.editor-tokenVariable {
+    color: #9cdcfe;
+}
+
+.editor-tokenFunction {
+    color: #dcdcaa;
+}
+
+/* tables */
+.editor-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.editor-table-row:nth-child(even) {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.editor-table-cell {
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 10px 14px;
+    min-width: 80px;
+    vertical-align: top;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 15px;
+    transition: background 0.1s ease;
+}
+
+.editor-table-cell:focus-within {
+    background: rgba(139, 92, 246, 0.06);
+    outline: 2px solid rgba(139, 92, 246, 0.3);
+    outline-offset: -2px;
+}
+
+.editor-table-cell-header {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 10px 14px;
+    background: rgba(139, 92, 246, 0.08);
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+    text-transform: uppercase;
+    font-size: 12px;
+    letter-spacing: 0.05em;
+}
+
+.editor-table-selection {
+    background: rgba(139, 92, 246, 0.15);
+}
+
+.editor-table-add-columns,
+.editor-table-add-rows {
+    display: none;
+}
+
+/* math nodes */
+.math-node {
+    display: inline-block;
+    position: relative;
+}
+
+.math-node.math-block {
+    display: block;
+    text-align: center;
+    margin: 20px 0;
+}
+
+.math-display-wrapper {
+    cursor: pointer;
+    padding: 4px 8px;
+    border-radius: 6px;
+    transition: all 0.15s ease;
+    border: 1px solid transparent;
+}
+
+.math-display-wrapper:hover {
+    background: rgba(139, 92, 246, 0.08);
+    border-color: rgba(139, 92, 246, 0.2);
+}
+
+.math-display-wrapper.math-block {
+    display: block;
+    padding: 16px;
+    margin: 16px 0;
+}
+
+.math-rendered {
+    color: #e2e8f0;
+}
+
+.math-editor-wrapper {
+    display: inline-flex;
+}
+
+.math-editor-wrapper.math-block {
+    display: flex;
+    justify-content: center;
+    margin: 16px 0;
+}
+
+.math-editor-container {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding: 12px;
+    background: rgba(30, 30, 46, 0.95);
+    border: 1px solid rgba(139, 92, 246, 0.3);
+    border-radius: 10px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    min-width: 280px;
+}
+
+.math-editor-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: rgba(139, 92, 246, 0.8);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
+
+.math-editor-input {
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #fff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+}
+
+.math-editor-input:focus {
+    outline: none;
+    border-color: rgba(139, 92, 246, 0.5);
+}
+
+.math-editor-hint {
+    font-size: 11px;
+    color: rgba(255, 255, 255, 0.3);
+}
+
+.math-editor-hint kbd {
+    padding: 1px 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+    background: rgba(255, 255, 255, 0.05);
+    font-family: inherit;
+    font-size: 10px;
+}
+
+.math-error {
+    color: #ff6b6b;
+    font-size: 13px;
+    padding: 4px 8px;
+    background: rgba(255, 107, 107, 0.1);
+    border-radius: 4px;
+}
