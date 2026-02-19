@@ -1,0 +1,146 @@
+.math-dialog {
+    min-width: 480px;
+    max-width: 560px;
+}
+
+.math-mode-toggle {
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 10px;
+    margin-bottom: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.mode-btn {
+    flex: 1;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.mode-btn.active {
+    background: rgba(139, 92, 246, 0.2);
+    color: #a78bfa;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.mode-btn:hover:not(.active) {
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.math-input-wrapper {
+    margin-bottom: 16px;
+}
+
+.math-input-label,
+.math-preview-label,
+.math-examples-label {
+    display: block;
+    font-size: 12px;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.math-input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.04);
+    color: #ffffff;
+    font-family: 'JetBrains Mono', 'Fira Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    resize: vertical;
+    transition: all 0.15s ease;
+    box-sizing: border-box;
+}
+
+.math-input:focus {
+    outline: none;
+    border-color: rgba(139, 92, 246, 0.5);
+    box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+}
+
+.math-input::placeholder {
+    color: rgba(255, 255, 255, 0.2);
+}
+
+.math-preview {
+    margin-bottom: 16px;
+}
+
+.math-preview-area {
+    min-height: 60px;
+    padding: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 10px;
+    background: rgba(255, 255, 255, 0.02);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    font-size: 18px;
+    overflow-x: auto;
+}
+
+.math-preview-area.block {
+    font-size: 22px;
+    padding: 24px;
+}
+
+.math-preview-placeholder {
+    color: rgba(255, 255, 255, 0.2);
+    font-size: 14px;
+    font-style: italic;
+}
+
+.math-error {
+    color: #ff6b6b;
+    font-size: 13px;
+}
+
+.math-examples {
+    margin-bottom: 20px;
+}
+
+.math-examples-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.math-example-btn {
+    padding: 6px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.math-example-btn:hover {
+    border-color: rgba(139, 92, 246, 0.4);
+    color: #a78bfa;
+    background: rgba(139, 92, 246, 0.1);
+}
+
+.btn-primary:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
