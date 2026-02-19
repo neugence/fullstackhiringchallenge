@@ -1,98 +1,26 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+Hiring Challenge: Rich Text Editor Using Lexical
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+For this assignment, I built a functional rich text editor using Lexical. This project shows how I handle frontend architecture, state management, and clean design.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+Task Overview
+I built a React editor that supports more than just plain text. It is designed to be easy to grow and keep clean.
 
----
+Main Features
 
-## Task Overview
+1. Lexical Editor Setup
+I used Lexical with React and followed the official way of setting things up. I avoided touching the DOM directly which keeps things fast and stable.
 
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
+2. Table Support
+You can insert tables from the toolbar. It supports rows and columns, and you can edit any cell directly. I kept the table logic separate from the UI so it's easy to change later.
 
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+3. Math Expressions
+I added support for math formulas. You can insert them and they render beautifully using KaTeX. They are also fully editable so you can change the formula after putting it in.
 
----
+4. State Management
+I used Zustand to manage the state. I kept the editor content separate from the UI controls like the toolbar. This makes the app much faster because it only updates what it needs to.
 
-## Core Requirements
+5. Saving and Loading
+The editor saves everything as JSON. When you reload the page, your work is still there. I used localStorage but wrote the code so it can talk to a real server very easily.
 
-### 1. Lexical Editor Setup
-
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
-
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
-
----
-
-### 2. Table Support
-
-Implement support for tables with the following capabilities:
-
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
-
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
-
----
-
-### 3. Mathematical Expressions
-
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
-
----
-
-### 5. Persistence (Basic)
-
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
-
----
-
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
-
----
-
-## Notes
-
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+Notes
+I focused on making the code clear and modular. This project shows how I would solve real-world problems in a professional development environment.
