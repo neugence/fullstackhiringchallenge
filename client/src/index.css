@@ -1,0 +1,61 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-notion-dark: #0f0f0f;
+  --color-notion-sidebar: #181818;
+  --color-notion-hover: #252525;
+  --color-notion-text: #e4e4e4;
+  --color-notion-muted: #737373;
+  --color-notion-border: #2a2a2a;
+  --color-accent: #3b82f6;
+  --color-accent-hover: #2563eb;
+}
+
+body {
+  background-color: var(--color-notion-dark);
+  color: var(--color-notion-text);
+  font-family: 'Inter', sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Playfair Display', serif;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #333;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* KaTeX dark theme in editor */
+[data-lexical-decorator] .katex,
+[data-lexical-decorator] .katex-display {
+  color: var(--color-notion-text);
+}
+
+[data-lexical-decorator] .katex .mord,
+[data-lexical-decorator] .katex .mop,
+[data-lexical-decorator] .katex .mbin,
+[data-lexical-decorator] .katex .mrel,
+[data-lexical-decorator] .katex .minner,
+[data-lexical-decorator] .katex .mpunct {
+  color: var(--color-notion-text);
+}
