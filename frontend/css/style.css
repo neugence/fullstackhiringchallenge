@@ -1,0 +1,382 @@
+/**
+ * Frontend Styles
+ * 
+ * This file contains the CSS styles for the Task Manager frontend.
+ */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #388E3C;
+    --secondary-color: #2196F3;
+    --danger-color: #f44336;
+    --warning-color: #ff9800;
+    --success-color: #4CAF50;
+    --dark-color: #333;
+    --light-color: #f5f5f5;
+    --white: #fff;
+    --gray: #666;
+    --border-color: #ddd;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+    background-color: var(--light-color);
+    color: var(--dark-color);
+    line-height: 1.6;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Auth Section */
+.auth-container {
+    max-width: 400px;
+    margin: 50px auto;
+    background: var(--white);
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.auth-form h1 {
+    text-align: center;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--dark-color);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: var(--dark-color);
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+.form-row {
+    display: flex;
+    gap: 15px;
+}
+
+.form-row .form-group {
+    flex: 1;
+}
+
+/* Buttons */
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background-color 0.3s;
+    width: 100%;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-dark);
+}
+
+.btn-secondary {
+    background-color: var(--gray);
+    color: var(--white);
+}
+
+.btn-secondary:hover {
+    background-color: #555;
+}
+
+.btn-danger {
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+
+.btn-danger:hover {
+    background-color: #d32f2f;
+}
+
+.btn-small {
+    padding: 5px 10px;
+    font-size: 12px;
+    width: auto;
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.form-actions .btn {
+    flex: 1;
+}
+
+/* Switch Form Link */
+.switch-form {
+    text-align: center;
+    margin-top: 15px;
+    color: var(--gray);
+}
+
+.switch-form a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.switch-form a:hover {
+    text-decoration: underline;
+}
+
+/* Messages */
+.message {
+    margin-top: 15px;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+    display: none;
+}
+
+.message.success {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+    display: block;
+}
+
+.message.error {
+    background-color: #ffebee;
+    color: var(--danger-color);
+    display: block;
+}
+
+/* Dashboard */
+#dashboard-section header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+#dashboard-section header h1 {
+    color: var(--primary-color);
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.badge.admin {
+    background-color: var(--danger-color);
+    color: var(--white);
+}
+
+.badge.user {
+    background-color: var(--secondary-color);
+    color: var(--white);
+}
+
+.dashboard-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 20px;
+}
+
+/* Task Form Container */
+.task-form-container {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    height: fit-content;
+}
+
+.task-form-container h2 {
+    margin-bottom: 15px;
+    color: var(--dark-color);
+}
+
+/* Task Filters */
+.task-filters {
+    grid-column: 2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.task-filters h2 {
+    color: var(--dark-color);
+}
+
+.filters {
+    display: flex;
+    gap: 10px;
+}
+
+.filters select {
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+}
+
+/* Task List */
+.task-list {
+    grid-column: 1 / -1;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.task-item {
+    background: var(--white);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.task-content {
+    flex: 1;
+}
+
+.task-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    color: var(--dark-color);
+}
+
+.task-description {
+    color: var(--gray);
+    margin-bottom: 10px;
+}
+
+.task-meta {
+    display: flex;
+    gap: 15px;
+    font-size: 12px;
+    color: var(--gray);
+}
+
+.task-status {
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.task-status.pending {
+    background-color: #fff3e0;
+    color: var(--warning-color);
+}
+
+.task-status.in-progress {
+    background-color: #e3f2fd;
+    color: var(--secondary-color);
+}
+
+.task-status.completed {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+}
+
+.task-priority {
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 11px;
+    font-weight: 500;
+    text-transform: uppercase;
+}
+
+.task-priority.low {
+    background-color: #e8f5e9;
+    color: var(--success-color);
+}
+
+.task-priority.medium {
+    background-color: #fff3e0;
+    color: var(--warning-color);
+}
+
+.task-priority.high {
+    background-color: #ffebee;
+    color: var(--danger-color);
+}
+
+.task-actions {
+    display: flex;
+    gap: 10px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .dashboard-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .task-filters {
+        grid-column: 1;
+    }
+    
+    #dashboard-section header {
+        flex-direction: column;
+        gap: 15px;
+    }
+}

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Manager - Backend Assignment</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Auth Section -->
+        <div id="auth-section">
+            <div class="auth-container">
+                <!-- Login Form -->
+                <div id="login-form" class="auth-form">
+                    <h1>Task Manager</h1>
+                    <h2>Login</h2>
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label for="login-email">Email</label>
+                            <input type="email" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="login-password">Password</label>
+                            <input type="password" id="login-password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Login</button>
+                        <p class="switch-form">
+                            Don't have an account? <a href="#" onclick="showRegister()">Register</a>
+                        </p>
+                    </form>
+                    <div id="login-message" class="message"></div>
+                </div>
+
+                <!-- Register Form -->
+                <div id="register-form" class="auth-form" style="display: none;">
+                    <h1>Task Manager</h1>
+                    <h2>Register</h2>
+                    <form onsubmit="handleRegister(event)">
+                        <div class="form-group">
+                            <label for="register-username">Username</label>
+                            <input type="text" id="register-username" required minlength="3">
+                        </div>
+                        <div class="form-group">
+                            <label for="register-email">Email</label>
+                            <input type="email" id="register-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="register-password">Password</label>
+                            <input type="password" id="register-password" required minlength="6">
+                        </div>
+                        <button type="submit" class="btn btn-primary">Register</button>
+                        <p class="switch-form">
+                            Already have an account? <a href="#" onclick="showLogin()">Login</a>
+                        </p>
+                    </form>
+                    <div id="register-message" class="message"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Section -->
+        <div id="dashboard-section" style="display: none;">
+            <header>
+                <h1>Task Manager</h1>
+                <div class="user-info">
+                    <span id="user-name"></span>
+                    <span id="user-role" class="badge"></span>
+                    <button onclick="logout()" class="btn btn-secondary">Logout</button>
+                </div>
+            </header>
+
+            <div class="dashboard-content">
+                <!-- Task Form -->
+                <div class="task-form-container">
+                    <h2 id="form-title">Create New Task</h2>
+                    <form id="task-form" onsubmit="handleTaskSubmit(event)">
+                        <input type="hidden" id="task-id">
+                        <div class="form-group">
+                            <label for="task-title">Title</label>
+                            <input type="text" id="task-title" required minlength="3" maxlength="100">
+                        </div>
+                        <div class="form-group">
+                            <label for="task-description">Description</label>
+                            <textarea id="task-description" rows="3" maxlength="500"></textarea>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="task-status">Status</label>
+                                <select id="task-status">
+                                    <option value="pending">Pending</option>
+                                    <option value="in-progress">In Progress</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="task-priority">Priority</label>
+                                <select id="task-priority">
+                                    <option value="low">Low</option>
+                                    <option value="medium" selected>Medium</option>
+                                    <option value="high">High</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-due-date">Due Date</label>
+                            <input type="date" id="task-due-date">
+                        </div>
+                        <div class="form-actions">
+                            <button type="submit" id="task-submit-btn" class="btn btn-primary">Create Task</button>
+                            <button type="button" id="cancel-edit-btn" class="btn btn-secondary" style="display: none;" onclick="cancelEdit()">Cancel</button>
+                        </div>
+                    </form>
+                    <div id="task-form-message" class="message"></div>
+                </div>
+
+                <!-- Task Filters -->
+                <div class="task-filters">
+                    <h2>Your Tasks</h2>
+                    <div class="filters">
+                        <select id="filter-status" onchange="filterTasks()">
+                            <option value="">All Status</option>
+                            <option value="pending">Pending</option>
+                            <option value="in-progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                        <select id="filter-priority" onchange="filterTasks()">
+                            <option value="">All Priority</option>
+                            <option value="low">Low</option>
+                            <option value="medium">Medium</option>
+                            <option value="high">High</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Task List -->
+                <div id="task-list" class="task-list">
+                    <!-- Tasks will be dynamically added here -->
+                </div>
+
+                <div id="task-message" class="message"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/auth.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>
