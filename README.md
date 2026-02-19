@@ -1,98 +1,112 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# 🚀 Smart Blog Editor (Internship Assignment)
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+A production-ready, Notion-style rich text editor built with modern frontend architecture, real-time auto-save logic, structured state management, and AI-powered summarization capabilities.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
-
----
-
-## Task Overview
-
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
-
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+This project demonstrates scalable component design, efficient state handling, and clean integration of third-party libraries.
 
 ---
 
-## Core Requirements
+## 🌐 Deliverables
 
-### 1. Lexical Editor Setup
-
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
-
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+ **Live Demo:** fullstackhiringchallenge-nine.vercel.app
+ **Backend API:** - **Backend API:** Runs locally (not deployed) 
 
 ---
 
-### 2. Table Support
+## 🛠️ Tech Stack
 
-Implement support for tables with the following capabilities:
+### Frontend
+ React.js  
+ Tailwind CSS  
+ Lexical (Rich Text Framework)  
+ Zustand (Global State Management)
 
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
+### Backend
+ Python (FastAPI)  
+ MongoDB  
 
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
-
----
-
-### 3. Mathematical Expressions
-
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
+### AI Integration
+- Google Gemini API (Content Summarization)
 
 ---
 
-### 4. State Management
+## ✨ Key Features & Architectural Decisions
 
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
+### 1️⃣ Intelligent Auto-Save (Custom Debouncing Algorithm)
 
-We are more interested in **state modeling decisions** than overall complexity.
+To ensure optimal performance and prevent excessive API calls, I implemented a custom **debounced auto-save mechanism**.
 
----
+#### Problem
+Saving on every keystroke can generate hundreds of API requests per minute, leading to:
+ Backend overload  
+ Poor performance  
+ Unnecessary database writes  
 
-### 5. Persistence (Basic)
+#### Solution
+The `LexicalAutoSavePlugin`:
+ Uses a `useRef`-based timer
+ Resets the timer on every content change
+ Triggers a `PATCH` request only after **2000ms (2 seconds)** of user inactivity
 
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
-
----
-
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
+This ensures:
+ Reduced server load
+ Smooth user experience  
+ Efficient persistence  
 
 ---
 
-## Notes
+### 2️⃣ Structured Lexical State Management
 
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+Instead of storing raw HTML (which introduces security risks and formatting inconsistencies), the editor stores the **Lexical JSON State Tree**.
+
+#### Benefits
+ Accurate reconstruction of editor state
+ Portable content format
+ Future-ready for mobile or alternative rendering engines
+ Cleaner separation between data and presentation
+
+---
+
+### 3️⃣ Global State Management with Zustand
+
+Zustand was selected for its simplicity and minimal boilerplate.
+
+It manages:
+Current post metadata
+Sync status ("Saving..." vs "Saved")
+ Global editor-related state
+
+#### Why Zustand?
+Lightweight compared to Redux
+ Minimal re-renders
+Clear separation of UI state and editor state
+Cleaner developer experience
+
+---
+
+### 4️⃣ AI-Powered Summarization
+
+Integrated Google Gemini API to:
+ Generate summaries from editor content
+ Provide intelligent content assistance
+Demonstrate external API integration capability
+
+The AI service is modularized in the backend for scalability.
+
+---
+
+## 📂 Project Structure
+
+```text
+├── client/                        # React Frontend
+│   ├── src/components/            # Editor, Toolbar, Sidebar
+│   ├── src/store/                 # Zustand Store
+│   ├── src/plugins/               # Lexical Plugins (AutoSave)
+│   ├── src/hooks/                 # Custom Hooks (Debounce)
+│   └── src/utils/                 # Utility Functions
+│
+├── server/                        # Python Backend (FastAPI)
+│   ├── main.py                    # API Routes
+│   ├── models.py                  # Pydantic Schemas
+│   ├── database.py                # MongoDB Connection
+│   └── ai_service.py              # AI Integration Layer
