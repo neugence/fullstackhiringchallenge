@@ -1,0 +1,274 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import 'katex/dist/katex.min.css';
+
+:root {
+  --font-family: 'Inter', sans-serif;
+  --bg-color: #f8fafc;
+  --text-color: #1e293b;
+  --primary-color: #3b82f6;
+  --bg-editor: #ffffff;
+  --border-color: #e2e8f0;
+  --success-color: #10b981;
+  --warning-color: #f59e0b;
+  --error-color: #ef4444;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+}
+
+body {
+  font-family: var(--font-family);
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Reset basics */
+* {
+  box-sizing: border-box;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font: inherit;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+/* Lexical specific classes needed for themes */
+.editor-container {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.editor-toolbar {
+  display: flex;
+  gap: 8px;
+  padding: 12px 16px;
+  background: #f1f5f9;
+  border-bottom: 1px solid var(--border-color);
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.toolbar-item {
+  padding: 6px 10px;
+  border-radius: 4px;
+  color: #475569;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.toolbar-item:hover {
+  background: #e2e8f0;
+  color: #1e293b;
+}
+
+.toolbar-item.active {
+  background: #bfdbfe;
+  color: #1e40af;
+}
+
+.toolbar-separator {
+  width: 1px;
+  height: 20px;
+  background: #cbd5e1;
+  margin: 0 4px;
+}
+
+.editor-inner {
+  position: relative;
+  min-height: 500px;
+}
+
+.editor-input {
+  min-height: 500px;
+  outline: none;
+  padding: 40px;
+  font-size: 16px;
+  line-height: 1.6;
+  position: relative;
+  background: var(--bg-editor);
+}
+
+.editor-placeholder {
+  color: #94a3b8;
+  overflow: hidden;
+  position: absolute;
+  text-overflow: ellipsis;
+  top: 40px;
+  left: 40px;
+  font-size: 16px;
+  user-select: none;
+  display: inline-block;
+  pointer-events: none;
+}
+
+/* Paragraphs */
+.editor-paragraph {
+  margin: 0 0 1em;
+  position: relative;
+}
+
+/* Headings */
+.editor-h1 { font-size: 2em; font-weight: 700; margin: 0 0 0.5em; color: #1e293b; }
+.editor-h2 { font-size: 1.5em; font-weight: 600; margin: 0 0 0.5em; border-bottom: 1px solid var(--border-color); padding-bottom: 0.25em; color: #334155; }
+.editor-h3 { font-size: 1.25em; font-weight: 600; margin: 0 0 0.5em; color: #334155; }
+
+/* Quote */
+.editor-quote {
+  margin: 0 0 1em 0;
+  font-size: 1.1em;
+  color: #64748b;
+  border-left: 4px solid var(--primary-color);
+  padding-left: 1rem;
+  font-style: italic;
+  background: #f8fafc;
+  padding: 1rem;
+  border-radius: 0 4px 4px 0;
+}
+
+/* Code */
+.editor-code {
+  background-color: #1e293b;
+  color: #f8fafc;
+  font-family: 'Menlo', 'Consolas', monospace;
+  display: block;
+  padding: 16px;
+  line-height: 1.53;
+  font-size: 14px;
+  margin: 0 0 1em;
+  overflow-x: auto;
+  position: relative;
+  tab-size: 2;
+  border-radius: 6px;
+}
+
+/* Lists */
+.editor-list-ul { padding: 0; margin: 0 0 1em 1.5em; list-style-type: disc; }
+.editor-list-ol { padding: 0; margin: 0 0 1em 1.5em; list-style-type: decimal; }
+.editor-listlistItem { margin: 0.25em 0; }
+
+/* Table specific */
+.editor-table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  max-width: 100%;
+  overflow-y: scroll;
+  table-layout: fixed;
+  width: 100%;
+  margin: 1em 0;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+}
+.editor-table-cell {
+  border: 1px solid var(--border-color);
+  padding: 8px 12px;
+  min-width: 75px;
+  vertical-align: top;
+  position: relative;
+  outline: none;
+}
+.editor-table-cell-header {
+  background-color: #f8fafc;
+  font-weight: 600;
+  color: #475569;
+}
+.editor-table-cell-selected {
+  background-color: rgba(59, 130, 246, 0.1);
+  outline: 2px solid var(--primary-color);
+  z-index: 2;
+}
+.editor-table-selection { display: none; } 
+
+/* Math specific */
+.editor-math {
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+  padding: 2px 4px;
+  border-radius: 4px;
+  transition: background 0.2s;
+}
+.editor-math:hover { background-color: #f1f5f9; }
+.editor-math-selected { background-color: #e2e8f0; outline: 2px solid var(--primary-color); }
+
+/* Dialog/Modal Styles */
+.dialog-overlay {
+  position: fixed;
+  top: 0; left: 0; bottom: 0; right: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  animation: fadeIn 0.2s;
+}
+
+.dialog-content {
+  background: #fff;
+  padding: 24px;
+  border-radius: 8px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow);
+  animation: slideUp 0.2s;
+}
+
+.dialog-title { font-size: 1.25em; font-weight: 600; margin-bottom: 16px; color: #1e293b; }
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.btn {
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary { background: var(--primary-color); color: #fff; }
+.btn-primary:hover { background: #2563eb; }
+.btn-secondary { background: #e2e8f0; color: #475569; }
+.btn-secondary:hover { background: #cbd5e1; }
+
+.form-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  margin-bottom: 12px;
+  font-family: inherit;
+}
+.form-input:focus { outline: 2px solid var(--primary-color); border-color: transparent; }
+
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
