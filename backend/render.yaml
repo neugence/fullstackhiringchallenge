@@ -1,0 +1,13 @@
+services:
+  - type: web
+    name: smart-blog-editor-api
+    env: python
+    region: oregon
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: FRONTEND_URL
+        value: https://smart-blog-editor.vercel.app
+      - key: GEMINI_API_KEY
+        sync: false

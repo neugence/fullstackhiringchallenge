@@ -1,98 +1,185 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# 🚀 Smart Blog Editor
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+A modern, extensible **Notion-style blog editor** built with React, Lexical, Zustand, Tailwind CSS, and FastAPI.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
-
----
-
-## Task Overview
-
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
-
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+![Status](https://img.shields.io/badge/status-active-success)
 
 ---
 
-## Core Requirements
+## ✨ Features
 
-### 1. Lexical Editor Setup
-
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
-
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
-
----
-
-### 2. Table Support
-
-Implement support for tables with the following capabilities:
-
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
-
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
+| Feature | Description |
+|---------|-------------|
+| **Rich Text Editor** | Lexical-powered with bold, italic, underline, headings (H1-H3), bullet/numbered lists |
+| **Table Support** | Insert configurable tables (rows × columns), editable cells |
+| **Math Expressions** | Inline LaTeX rendered via KaTeX — click to edit, blur to render |
+| **Auto-Save** | Debounced (1.5s) auto-save with dirty state tracking |
+| **Posts Dashboard** | Create, edit, publish posts with status badges |
+| **AI Summary** | Generate summaries via Gemini API (with fallback) |
+| **State Management** | Clean Zustand architecture with 3 separated stores |
 
 ---
 
-### 3. Mathematical Expressions
+## 🛠 Tech Stack
 
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
+| Layer | Technology |
+|-------|-----------|
+| Frontend | React 18, Vite, Tailwind CSS 3 |
+| Editor | Lexical (Meta) |
+| State | Zustand |
+| Math | KaTeX |
+| Backend | Python FastAPI |
+| Database | SQLite (via SQLAlchemy) |
+| AI | Google Gemini API |
 
 ---
 
-### 5. Persistence (Basic)
+## 🚀 Setup Instructions
 
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
+### Prerequisites
+- Node.js ≥ 18
+- Python ≥ 3.9
+
+### Frontend
+
+```bash
+cd frontend
+npm install
+npm run dev       # → http://localhost:5173
+```
+
+### Backend
+
+```bash
+cd backend
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000
+```
+
+### Environment Variables (Optional)
+
+```bash
+# For AI Summary feature
+export GEMINI_API_KEY=your_api_key_here
+```
 
 ---
 
-## Architecture & Design Expectations
+## 🧮 Auto-Save Explanation
 
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
+### Algorithm: Debounce (1500ms)
 
-A **simple README** explaining your design decisions is required.
+```
+User types → Reset timer → Wait 1.5s → Compare with lastSaved → PATCH API
+```
+
+1. Every editor state change triggers `editor.registerUpdateListener()`
+2. The `useAutoSave` hook resets a `setTimeout` timer on each change
+3. When the user stops typing for **1500ms**, the save fires
+4. Before sending the API request, it compares serialized JSON with `lastSavedContent` — **redundant saves are skipped**
+5. On success, the store updates `isDirty = false` and `lastSaved` timestamp
+
+#### Why debounce over throttle?
+- Debounce waits for a **pause in activity**, which better matches typing behavior
+- Throttle would fire at fixed intervals even during continuous typing (wasteful)
+- 1.5s is the sweet spot: long enough to batch keystrokes, short enough to prevent data loss
 
 ---
 
-## Notes
+## 📊 Schema Design
 
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+### Post Table
+
+| Column | Type | Description |
+|--------|------|-------------|
+| `id` | INTEGER PK | Auto-increment |
+| `title` | VARCHAR(500) | Post title |
+| `content` | TEXT | **Serialized Lexical JSON** |
+| `status` | ENUM | `draft` \| `published` |
+| `created_at` | DATETIME | Creation timestamp |
+| `updated_at` | DATETIME | Last update timestamp |
+
+### Why Lexical JSON?
+
+We store editor content as **serialized Lexical JSON** (not HTML) because:
+
+1. **Lossless round-trip** — No information lost during save/restore
+2. **Rich node support** — Tables, math expressions, custom nodes all preserved exactly
+3. **Framework-native** — Lexical can directly `parseEditorState()` the JSON
+4. **No HTML sanitization needed** — JSON is safe by design
+5. **Diffable** — Easier to compare and detect changes programmatically
+
+**Trade-off**: HTML would be more portable (render without Lexical), but we'd lose custom node data (math expressions, table metadata).
+
+---
+
+## 🧩 State Management Design
+
+### Store Architecture (3 stores)
+
+```
+editorStore     → Content-related state (serialized JSON, dirty tracking)
+uiStore         → UI-related state (toolbar, modals, loading indicators)
+postsStore      → Posts CRUD operations and list data
+```
+
+**Why separate stores?**
+- **Render isolation**: UI toolbar changes (hovering buttons) don't re-render the editor
+- **Clean selectors**: Components only subscribe to the state they need
+- **Maintainability**: Each store has a single responsibility
+
+### editorStore
+- `editorContent` — serialized Lexical JSON
+- `lastSavedContent` — for change detection
+- `isDirty` — computed on content change
+- `lastSaved` — timestamp for UI indicator
+
+### uiStore
+- Toolbar formatting state (`isBold`, `isItalic`, etc.)
+- Modal toggles (`showTableModal`, `showMathModal`, `showAIPanel`)
+- Loading indicators (`isSaving`, `isLoading`)
+
+### postsStore
+- Posts array with async CRUD actions
+- Direct API calls with optimistic updates
+
+---
+
+## 📁 Project Structure
+
+```
+├── frontend/
+│   └── src/
+│       ├── components/
+│       │   ├── Editor/          # Lexical editor, toolbar, plugins, nodes
+│       │   ├── Dashboard/       # Posts list
+│       │   └── AI/              # AI summary panel
+│       ├── stores/              # 3 Zustand stores
+│       ├── hooks/               # useAutoSave
+│       ├── services/            # API client
+│       └── pages/               # EditorPage
+├── backend/
+│   ├── main.py                  # FastAPI routes
+│   ├── models.py                # SQLAlchemy models
+│   ├── schemas.py               # Pydantic schemas
+│   └── database.py              # DB connection
+└── README.md
+```
+
+---
+
+## 🎯 API Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/posts/` | Create new draft |
+| `GET` | `/api/posts/` | Fetch all posts (optional `?status=draft`) |
+| `GET` | `/api/posts/{id}` | Fetch single post |
+| `PATCH` | `/api/posts/{id}` | Auto-save update |
+| `POST` | `/api/posts/{id}/publish` | Publish post |
+| `POST` | `/api/ai/summarize` | Generate AI summary |
+| `GET` | `/api/health` | Health check |
+
+## VIDEO LINK LOOM
+https://www.loom.com/share/377d683f89794c54a8ea52ec86976371
+

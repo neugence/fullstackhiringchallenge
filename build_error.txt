@@ -1,0 +1,126 @@
+﻿[36mvite v5.4.21 [32mbuilding for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 5 modules transformed.
+node.exe : 
+[31mx[39m Build 
+failed in 1.09s
+At line:1 char:1
++ & "C:\Program Files
+\nodejs/node.exe" 
+"C:\Program 
+Files\nodejs/node_mo 
+...
++ ~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ([31mx   
+ [39m Build faile    
+d in 1.09s:Strin    
+g) [], RemoteExc    
+eption
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+[31merror during 
+build:
+[31m[vite:css] 
+[postcss] 
+C:/Users/AAKSHIN C 
+S/Desktop/ASSIGNMENT 
+2 antigravity/fronten
+d/src/index.css:222:5
+: The `bg-white/98` 
+class does not 
+exist. If 
+`bg-white/98` is a 
+custom class, make 
+sure it is defined 
+within a `@layer` 
+directive.[31m
+file: [36mC:/Users/A
+AKSHIN C 
+S/Desktop/ASSIGNMENT 
+2 antigravity/fronten
+d/src/index.css:222:4
+[31m
+    at Input.error 
+(C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\postcs
+s\lib\input.js:135:16
+)
+    at AtRule.error 
+(C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\postcs
+s\lib\node.js:146:32)
+    at processApply 
+(C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\tailwi
+ndcss\lib\lib\expandA
+pplyAtRules.js:380:29
+)
+    at 
+C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\tailwi
+ndcss\lib\lib\expandA
+pplyAtRules.js:551:9
+    at 
+C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\tailwi
+ndcss\lib\processTail
+windFeatures.js:55:50
+    at async plugins 
+(C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\tailwi
+ndcss\lib\plugin.js:3
+8:17)
+    at async 
+LazyResult.runAsync 
+(C:\Users\AAKSHIN C 
+S\Desktop\ASSIGNMENT 
+2 antigravity\fronten
+d\node_modules\postcs
+s\lib\lazy-result.js:
+293:11)
+    at async 
+compileCSS (file:///C
+:/Users/AAKSHIN%20C%2
+0S/Desktop/ASSIGNMENT
+%202%20antigravity/fr
+ontend/node_modules/v
+ite/dist/node/chunks/
+dep-BK3b2jBa.js:36898
+:21)
+    at async 
+Object.transform (fil
+e:///C:/Users/AAKSHIN
+%20C%20S/Desktop/ASSI
+GNMENT%202%20antigrav
+ity/frontend/node_mod
+ules/vite/dist/node/c
+hunks/dep-BK3b2jBa.js
+:36171:11)
+    at async 
+transform (file:///C:
+/Users/AAKSHIN%20C%20
+S/Desktop/ASSIGNMENT%
+202%20antigravity/fro
+ntend/node_modules/ro
+llup/dist/es/shared/n
+ode-entry.js:21246:16
+)[39m
