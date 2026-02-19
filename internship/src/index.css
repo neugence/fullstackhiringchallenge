@@ -1,0 +1,119 @@
+/* src/index.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /* Editor styles */
+  .editor-container {
+    position: relative;
+  }
+
+  /* Table styles */
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 1rem 0;
+  }
+
+  td, th {
+    border: 1px solid #e2e8f0;
+    padding: 8px 12px;
+    min-width: 100px;
+  }
+
+  th {
+    background-color: #f7fafc;
+    font-weight: 600;
+  }
+
+  /* Math expression styles */
+  .math-expression {
+    display: inline-block;
+    padding: 0 4px;
+  }
+
+  .math-expression.block {
+    display: block;
+    margin: 1rem 0;
+    text-align: center;
+    padding: 0.5rem;
+    background-color: #f8f9fa;
+    border-radius: 0.375rem;
+  }
+
+  /* Editor content styles */
+  .ContentEditable__root {
+    min-height: 400px;
+    outline: none;
+  }
+
+  .ContentEditable__root p {
+    margin-bottom: 0.5rem;
+  }
+
+  /* Placeholder */
+  .editor-placeholder {
+    color: #a0aec0;
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  /* KaTeX customization */
+  .katex-display {
+    margin: 0.5rem 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+@layer components {
+  /* Toolbar button animations */
+  .toolbar-button {
+    @apply transition-all duration-200 ease-in-out;
+  }
+
+  .toolbar-button:hover {
+    @apply transform scale-105;
+  }
+
+  /* Modal animations */
+  .modal-enter {
+    @apply opacity-0 scale-95;
+  }
+
+  .modal-enter-active {
+    @apply opacity-100 scale-100 transition-all duration-300;
+  }
+
+  .modal-exit {
+    @apply opacity-100 scale-100;
+  }
+
+  .modal-exit-active {
+    @apply opacity-0 scale-95 transition-all duration-300;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #cbd5e0;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a0aec0;
+}
