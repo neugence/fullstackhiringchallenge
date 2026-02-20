@@ -1,0 +1,53 @@
+:root {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: light;
+  background-color: #f1f5f9;
+  color: #1e293b;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+.app-container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app-header {
+  padding: 2rem 1rem;
+  text-align: center;
+  background: white;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.app-header p {
+  margin: 0.5rem 0 0;
+  color: #64748b;
+  font-size: 1.1rem;
+}
+
+main {
+  flex: 1;
+  padding: 2rem 1rem;
+}
+
+.app-footer {
+  padding: 1.5rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+  border-top: 1px solid #e2e8f0;
+  background: white;
+}
