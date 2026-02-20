@@ -1,0 +1,218 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Design System — Rich Text Editor
+   All colors defined as HSL for Tailwind compatibility
+   Hex reference kept in comments for designer handoff
+*/
+
+@layer base {
+  :root {
+    /* #F8F9FA */ --background: 210 17% 98%;
+    /* #1A1D23 */ --foreground: 222 16% 12%;
+
+    /* #FFFFFF */ --card: 0 0% 100%;
+    /* #1A1D23 */ --card-foreground: 222 16% 12%;
+
+    /* #FFFFFF */ --popover: 0 0% 100%;
+    /* #1A1D23 */ --popover-foreground: 222 16% 12%;
+
+    /* #2563EB */ --primary: 221 83% 53%;
+    /* #FFFFFF */ --primary-foreground: 0 0% 100%;
+
+    /* #EFF6FF */ --secondary: 214 100% 97%;
+    /* #1E40AF */ --secondary-foreground: 226 71% 40%;
+
+    /* #F1F5F9 */ --muted: 210 40% 96%;
+    /* #64748B */ --muted-foreground: 215 16% 47%;
+
+    /* #DBEAFE */ --accent: 213 100% 93%;
+    /* #1E40AF */ --accent-foreground: 226 71% 40%;
+
+    /* #EF4444 */ --destructive: 0 84% 60%;
+    /* #FFFFFF */ --destructive-foreground: 0 0% 100%;
+
+    /* #E2E8F0 */ --border: 214 32% 91%;
+    /* #E2E8F0 */ --input: 214 32% 91%;
+    /* #2563EB */ --ring: 221 83% 53%;
+
+    --radius: 0.5rem;
+
+    /* Editor-specific tokens */
+    /* #FFFFFF */ --editor-bg: 0 0% 100%;
+    /* #1A1D23 */ --editor-fg: 222 16% 12%;
+    /* #F8FAFC */ --toolbar-bg: 210 40% 98%;
+    /* #E2E8F0 */ --toolbar-border: 214 32% 91%;
+    /* #EFF6FF */ --toolbar-btn-hover: 214 100% 97%;
+    /* #DBEAFE */ --toolbar-btn-active: 213 100% 93%;
+    /* #2563EB */ --toolbar-btn-active-fg: 221 83% 53%;
+    /* #E2E8F0 */ --table-border: 214 32% 91%;
+    /* #EFF6FF */ --table-header: 214 100% 97%;
+    /* #FEF9C3 */ --math-bg: 55 100% 94%;
+    /* #713F12 */ --math-fg: 32 92% 26%;
+    /* #FEF08A */ --math-border: 55 98% 76%;
+    /* #F0FDF4 */ --code-bg: 138 76% 97%;
+    /* #166534 */ --code-fg: 140 76% 28%;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  }
+}
+
+/* ─── Lexical Editor Core ─────────────────────────────────────── */
+.editor-root {
+  outline: none;
+  min-height: 500px;
+  padding: 2rem 2.5rem;
+  font-size: 1rem;
+  line-height: 1.75;
+  color: hsl(var(--editor-fg));
+  caret-color: hsl(var(--primary));
+}
+
+.editor-root p {
+  margin: 0 0 0.75rem 0;
+}
+
+.editor-root h1 { font-size: 2rem; font-weight: 700; margin: 1.5rem 0 0.75rem; line-height: 1.2; }
+.editor-root h2 { font-size: 1.5rem; font-weight: 600; margin: 1.25rem 0 0.625rem; }
+.editor-root h3 { font-size: 1.25rem; font-weight: 600; margin: 1rem 0 0.5rem; }
+
+.editor-root ul { list-style: disc; padding-left: 1.5rem; margin: 0.5rem 0; }
+.editor-root ol { list-style: decimal; padding-left: 1.5rem; margin: 0.5rem 0; }
+.editor-root li { margin: 0.25rem 0; }
+
+.editor-root blockquote {
+  border-left: 4px solid hsl(var(--primary));
+  padding-left: 1rem;
+  margin: 1rem 0;
+  color: hsl(var(--muted-foreground));
+  font-style: italic;
+}
+
+.editor-root code:not(.editor-code) {
+  background: hsl(var(--code-bg));
+  color: hsl(var(--code-fg));
+  padding: 0.15em 0.4em;
+  border-radius: 0.25rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875em;
+}
+
+.editor-root .editor-code {
+  background: hsl(222 16% 12%);
+  color: hsl(60 100% 80%);
+  padding: 1rem 1.25rem;
+  border-radius: 0.5rem;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  font-size: 0.875rem;
+  overflow-x: auto;
+  display: block;
+  margin: 1rem 0;
+}
+
+/* ─── Lexical Table Styles ────────────────────────────────────── */
+.editor-root table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 1.25rem 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  border: 1px solid hsl(var(--table-border));
+}
+
+.editor-root th,
+.editor-root td {
+  border: 1px solid hsl(var(--table-border));
+  padding: 0.625rem 0.875rem;
+  text-align: left;
+  min-width: 80px;
+}
+
+.editor-root th {
+  background: hsl(var(--table-header));
+  font-weight: 600;
+  color: hsl(var(--secondary-foreground));
+}
+
+.editor-root tr:nth-child(even) td {
+  background: hsl(var(--secondary) / 0.4);
+}
+
+.editor-root .TableNode__contentEditable {
+  outline: none;
+}
+
+/* ─── Math Node ───────────────────────────────────────────────── */
+.math-node {
+  display: inline-block;
+  background: hsl(var(--math-bg));
+  border: 1px solid hsl(var(--math-border));
+  border-radius: 0.375rem;
+  padding: 0.25rem 0.5rem;
+  color: hsl(var(--math-fg));
+  cursor: pointer;
+  user-select: none;
+  vertical-align: middle;
+  margin: 0 2px;
+}
+
+.math-node-block {
+  display: block;
+  background: hsl(var(--math-bg));
+  border: 1px solid hsl(var(--math-border));
+  border-radius: 0.5rem;
+  padding: 1rem 1.5rem;
+  margin: 1rem 0;
+  text-align: center;
+  cursor: pointer;
+}
+
+.math-node.selected,
+.math-node-block.selected {
+  outline: 2px solid hsl(var(--primary));
+  outline-offset: 2px;
+}
+
+/* ─── Placeholder ─────────────────────────────────────────────── */
+.editor-placeholder {
+  color: hsl(var(--muted-foreground));
+  pointer-events: none;
+  position: absolute;
+  top: 2rem;
+  left: 2.5rem;
+  user-select: none;
+  font-size: 1rem;
+}
+
+/* ─── Selection ───────────────────────────────────────────────── */
+::selection {
+  background: hsl(var(--primary) / 0.2);
+}
+
+/* ─── Scrollbar ───────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: hsl(var(--muted)); }
+::-webkit-scrollbar-thumb { background: hsl(var(--border)); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: hsl(var(--muted-foreground) / 0.5); }
+
+/* katex */
+.katex { font-size: 1.1em; }
