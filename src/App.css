@@ -1,0 +1,621 @@
+/* ═══════════════════════════════════════════════════
+   Lexical Editor — Stylesheet
+   ═══════════════════════════════════════════════════ */
+
+/* ── CSS Variables ─────────────────────────────── */
+:root {
+  --color-bg: #0f1117;
+  --color-surface: #1a1d27;
+  --color-surface-hover: #252836;
+  --color-border: #2e3140;
+  --color-border-light: #3a3f52;
+  --color-text: #e4e6f0;
+  --color-text-muted: #8b8fa3;
+  --color-text-dim: #6b6f83;
+  --color-primary: #6c7cff;
+  --color-primary-hover: #8490ff;
+  --color-primary-bg: rgba(108, 124, 255, 0.12);
+  --color-danger: #ff6b6b;
+  --color-danger-hover: #ff8585;
+  --color-success: #51cf66;
+  --color-code-bg: #12141c;
+  --color-table-header: #1e2130;
+  --color-table-border: #2e3140;
+  --color-selection: rgba(108, 124, 255, 0.2);
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --shadow-dropdown: 0 8px 30px rgba(0, 0, 0, 0.4);
+  --font-mono: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --transition-fast: 120ms ease;
+  --transition-normal: 200ms ease;
+}
+
+/* ── Reset & Globals ───────────────────────────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background: var(--color-bg);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ── App Layout ────────────────────────────────── */
+.app {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  min-height: 100vh;
+}
+
+.app-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.app-header h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--color-primary), #a78bfa);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  margin: 0 0 0.3rem;
+}
+
+.app-subtitle {
+  color: var(--color-text-muted);
+  font-size: 0.85rem;
+  margin: 0;
+  letter-spacing: 0.08em;
+}
+
+/* ── Editor Shell ──────────────────────────────── */
+.editor-shell {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.editor-container {
+  position: relative;
+  min-height: 400px;
+}
+
+.editor-input {
+  padding: 1.25rem 1.5rem;
+  min-height: 400px;
+  outline: none;
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  caret-color: var(--color-primary);
+}
+
+.editor-placeholder {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.5rem;
+  color: var(--color-text-dim);
+  pointer-events: none;
+  user-select: none;
+  font-size: 1rem;
+}
+
+/* ── Toolbar ───────────────────────────────────── */
+.toolbar {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--color-border);
+  background: var(--color-surface);
+  flex-wrap: wrap;
+}
+
+.toolbar-group {
+  display: flex;
+  align-items: center;
+  gap: 1px;
+}
+
+.toolbar-divider {
+  width: 1px;
+  height: 24px;
+  background: var(--color-border);
+  margin: 0 6px;
+}
+
+.toolbar-divider.horizontal {
+  width: 100%;
+  height: 1px;
+  margin: 6px 0;
+}
+
+.toolbar-spacer {
+  flex: 1;
+}
+
+.toolbar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 8px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.toolbar-btn:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.toolbar-btn.active {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+.toolbar-btn.small {
+  padding: 4px 6px;
+  font-size: 0.75rem;
+}
+
+.toolbar-btn.danger:hover {
+  color: var(--color-danger);
+  background: rgba(255, 107, 107, 0.1);
+}
+
+.toolbar-action-btn {
+  padding: 6px 16px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  font-weight: 500;
+  transition: all var(--transition-fast);
+}
+
+.toolbar-action-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ── Dropdowns ─────────────────────────────────── */
+.dropdown-wrapper {
+  position: relative;
+}
+
+.dropdown-trigger {
+  font-weight: 500;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  z-index: 100;
+  min-width: 160px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-dropdown);
+  padding: 4px;
+  animation: dropdown-enter 0.15s ease;
+}
+
+@keyframes dropdown-enter {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 7px 12px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: transparent;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  font-size: 0.82rem;
+  font-family: var(--font-sans);
+  transition: all var(--transition-fast);
+}
+
+.dropdown-item:hover {
+  background: var(--color-surface-hover);
+  color: var(--color-text);
+}
+
+.dropdown-item.active {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+}
+
+/* Table dropdown */
+.table-dropdown {
+  min-width: 200px;
+  padding: 8px;
+}
+
+.table-dialog-content h4,
+.math-dialog-content h4 {
+  margin: 0 0 8px;
+  font-size: 0.82rem;
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.table-size-inputs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.table-size-inputs label {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+}
+
+.table-size-inputs input {
+  width: 50px;
+  padding: 4px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-code-bg);
+  color: var(--color-text);
+  font-size: 0.8rem;
+  font-family: var(--font-sans);
+  text-align: center;
+}
+
+.table-actions {
+  display: flex;
+  gap: 4px;
+  flex-wrap: wrap;
+}
+
+/* Math dropdown */
+.math-dropdown {
+  min-width: 260px;
+  padding: 10px;
+}
+
+.math-input-field {
+  width: 100%;
+  padding: 8px 10px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-code-bg);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  margin-bottom: 8px;
+}
+
+.math-input-field:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-bg);
+}
+
+.math-options {
+  display: flex;
+  gap: 16px;
+  margin-bottom: 10px;
+}
+
+.math-radio {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.78rem;
+  color: var(--color-text-muted);
+  cursor: pointer;
+}
+
+.math-radio input {
+  accent-color: var(--color-primary);
+}
+
+/* Save indicator */
+.save-indicator {
+  font-size: 0.72rem;
+  color: var(--color-text-dim);
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  animation: fade-in 0.3s ease;
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* ═══════════════════════════════════════════════════
+   Lexical Theme Classes
+   ═══════════════════════════════════════════════════ */
+
+/* Typography */
+.editor-heading-h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 0.8em 0 0.4em;
+  color: var(--color-text);
+}
+
+.editor-heading-h2 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0.7em 0 0.35em;
+  color: var(--color-text);
+}
+
+.editor-heading-h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 0.6em 0 0.3em;
+  color: var(--color-text);
+}
+
+.editor-paragraph {
+  margin: 0 0 0.5em;
+  line-height: 1.7;
+}
+
+.editor-quote {
+  margin: 0.8em 0;
+  padding: 0.5em 1em;
+  border-left: 3px solid var(--color-primary);
+  color: var(--color-text-muted);
+  background: var(--color-primary-bg);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+}
+
+/* Text formatting */
+.editor-text-bold {
+  font-weight: 700;
+}
+
+.editor-text-italic {
+  font-style: italic;
+}
+
+.editor-text-underline {
+  text-decoration: underline;
+}
+
+.editor-text-strikethrough {
+  text-decoration: line-through;
+}
+
+.editor-text-underline-strikethrough {
+  text-decoration: underline line-through;
+}
+
+.editor-text-code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  padding: 2px 6px;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: #e5c07b;
+}
+
+/* Code block */
+.editor-code {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  background: var(--color-code-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 1em 1.25em;
+  margin: 0.8em 0;
+  overflow-x: auto;
+  line-height: 1.6;
+}
+
+/* Code highlighting */
+.editor-tokenComment { color: #5c6370; font-style: italic; }
+.editor-tokenPunctuation { color: #abb2bf; }
+.editor-tokenProperty { color: #d19a66; }
+.editor-tokenSelector { color: #98c379; }
+.editor-tokenOperator { color: #56b6c2; }
+.editor-tokenAttr { color: #c678dd; }
+.editor-tokenVariable { color: #e06c75; }
+.editor-tokenFunction { color: #61afef; }
+
+/* Lists */
+.editor-list-ol,
+.editor-list-ul {
+  margin: 0.5em 0;
+  padding-left: 1.5em;
+}
+
+.editor-listitem {
+  margin: 0.2em 0;
+}
+
+.editor-nested-listitem {
+  list-style-type: none;
+}
+
+/* Links */
+.editor-link {
+  color: var(--color-primary);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color var(--transition-fast);
+}
+
+.editor-link:hover {
+  border-bottom-color: var(--color-primary);
+}
+
+/* ═══════════════════════════════════════════════════
+   Table Styles
+   ═══════════════════════════════════════════════════ */
+.editor-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1em 0;
+  border: 1px solid var(--color-table-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.editor-table-cell {
+  border: 1px solid var(--color-table-border);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  vertical-align: top;
+  min-width: 80px;
+}
+
+.editor-table-cell-header {
+  border: 1px solid var(--color-table-border);
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  background: var(--color-table-header);
+  vertical-align: top;
+  min-width: 80px;
+}
+
+.editor-table-row {
+  transition: background var(--transition-fast);
+}
+
+.editor-table-row:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.editor-table-selection {
+  background: var(--color-selection);
+}
+
+/* ═══════════════════════════════════════════════════
+   Math Styles
+   ═══════════════════════════════════════════════════ */
+.editor-math {
+  display: inline;
+}
+
+.math-renderer {
+  display: inline;
+  cursor: pointer;
+  padding: 2px 4px;
+  border-radius: var(--radius-sm);
+  transition: background var(--transition-fast);
+}
+
+.math-renderer:hover {
+  background: var(--color-primary-bg);
+}
+
+.math-renderer.selected {
+  background: var(--color-primary-bg);
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.math-renderer.block {
+  display: block;
+  text-align: center;
+  padding: 1em;
+  margin: 0.8em 0;
+}
+
+.math-editor-container {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px;
+  border: 1px solid var(--color-primary);
+  border-radius: var(--radius-sm);
+  background: var(--color-code-bg);
+}
+
+.math-editor-container.block {
+  display: flex;
+  margin: 0.5em 0;
+}
+
+.math-input {
+  padding: 4px 8px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  outline: none;
+  min-width: 150px;
+}
+
+.math-input:focus {
+  border-color: var(--color-primary);
+}
+
+.math-textarea {
+  resize: vertical;
+  width: 100%;
+  min-width: 200px;
+}
+
+.math-confirm-btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-primary);
+  color: #fff;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 600;
+  transition: background var(--transition-fast);
+}
+
+.math-confirm-btn:hover {
+  background: var(--color-primary-hover);
+}
+
+/* ═══════════════════════════════════════════════════
+   LTR / RTL
+   ═══════════════════════════════════════════════════ */
+.ltr {
+  text-align: left;
+}
+
+.rtl {
+  text-align: right;
+}
