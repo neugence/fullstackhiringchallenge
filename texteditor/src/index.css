@@ -1,0 +1,169 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html.dark body {
+  background-color: #1a1a1a;
+  color: #e5e5e5;
+}
+
+/* Ensure the main app wrapper takes full height and background */
+html.dark .min-h-screen {
+  background-image: none;
+  /* Remove gradient in dark mode if preferred, or update it */
+  background-color: #111827;
+}
+
+html.dark .bg-gradient-to-br {
+  /* Override the light mode gradient */
+  background-image: linear-gradient(to bottom right, #111827, #1f2937);
+}
+
+html.dark .editor-shell {
+  background-color: #1f2937;
+  /* Gray 800 */
+  border-color: #374151;
+  /* Gray 700 */
+}
+
+html.dark .editor-container {
+  color: #f3f4f6;
+  /* Gray 100 - Almost White */
+}
+
+html.dark .editor-input {
+  color: inherit;
+  /* Ensure it takes the container color */
+  caret-color: #f3f4f6;
+  /* White cursor */
+}
+
+html.dark .editor-placeholder {
+  color: #9ca3af;
+  /* Gray 400 */
+}
+
+html.dark .paragraph {
+  color: inherit;
+}
+
+/* Ensure toolbar icons are visible in dark mode */
+html.dark .toolbar button svg,
+html.dark .toolbar .group svg {
+  @apply text-gray-200;
+}
+
+html.dark .toolbar button:hover {
+  @apply bg-gray-700;
+}
+
+html.dark input,
+html.dark select,
+html.dark button {
+  background-color: #262626;
+  color: #e5e5e5;
+  border-color: #404040;
+}
+
+html.dark .toolbar {
+  background-color: #262626;
+  border-color: #404040;
+}
+
+html.dark .editor-link {
+  color: #3b82f6;
+}
+
+html.dark .PlaygroundEditorTheme__tableCell {
+  border-color: #404040;
+}
+
+html.dark .PlaygroundEditorTheme__tableCellHeader {
+  background-color: #333;
+}
+
+::selection {
+  background-color: rgba(59, 130, 246, 0.3);
+  /* Light blue with transparency */
+  color: inherit;
+  /* Keeps the text color visible */
+}
+
+
+.editor-shell {
+  @apply rounded-lg border border-gray-300 shadow-sm bg-white overflow-hidden max-w-4xl w-full mx-auto my-5;
+}
+
+.editor-container {
+  @apply relative min-h-[400px] p-4 font-sans text-base leading-relaxed text-black dark:text-gray-100 focus:outline-none;
+}
+
+.editor-input {
+  @apply min-h-[400px] outline-none;
+}
+
+.editor-placeholder {
+  @apply absolute top-4 left-4 text-gray-400 pointer-events-none select-none;
+}
+
+/* Lexical Theme Classes - will be filled later */
+.ltr {
+  text-align: left;
+}
+
+.rtl {
+  text-align: right;
+}
+
+/* Table Styles (basic) */
+.PlaygroundEditorTheme__table {
+  border-collapse: collapse;
+  margin: 0;
+  width: 100%;
+  overflow-y: hidden;
+  overflow-x: scroll;
+  display: block;
+}
+
+.PlaygroundEditorTheme__tableCell {
+  border: 1px solid #ccc;
+  min-width: 75px;
+  padding: 8px;
+  vertical-align: top;
+  position: relative;
+  outline: none;
+}
+
+.PlaygroundEditorTheme__tableCellHeader {
+  background-color: #f2f3f5;
+  font-weight: bold;
+}
+
+/* Math Styles (basic) */
+.katex-display {
+  overflow: auto hidden;
+}
+
+.editor-link {
+  color: rgb(37, 99, 235);
+  text-decoration: none;
+}
+
+.editor-link:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* Slash Command Popover & Floating Toolbar Z-Index Fix */
+.typeahead-popover {
+  z-index: 9999 !important;
+  /* Force high z-index */
+  position: absolute;
+  /* Ensure it floats */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+}
+
+/* Ensure Floating Toolbar is also high up */
+.floating-toolbar {
+  z-index: 9999 !important;
+}
