@@ -14,9 +14,17 @@ export default function TablePlugin() {
         // Check if we're inside a table
         const selection = window.getSelection();
         if (selection && selection.anchorNode) {
-          const tableElement = selection.anchorNode.closest('table');
-          if (tableElement) {
-            showTableControls();
+          // Get the closest element node (since anchorNode might be a text node)
+          let element = selection.anchorNode;
+          if (element.nodeType === Node.TEXT_NODE) {
+            element = element.parentElement;
+          }
+          
+          if (element && element.closest) {
+            const tableElement = element.closest('table');
+            if (tableElement) {
+              showTableControls();
+            }
           }
         }
       });

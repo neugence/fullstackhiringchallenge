@@ -53,7 +53,7 @@ export default function TableControls() {
         } catch (error) {
           // If the anchor node is not in a table, try to find the nearest table
           let currentNode = anchorNode;
-          while (currentNode && !currentNode.is($isTableNode)) {
+          while (currentNode && !$isTableNode(currentNode)){
             currentNode = currentNode.getParent();
           }
           if (currentNode) {

@@ -1,36 +1,21 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useCallback } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 
-export default function MathComponent({ latex, onLoad, onError }) {
-  const containerRef = useRef(null);
-  const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
+export default function MathComponent({ latex }) {
+  const ref = useCallback((container) => {
+    if (!container) return;
 
     try {
-      // Clear previous content
-      containerRef.current.innerHTML = '';
-      
-      // Render the KaTeX equation
       const html = katex.renderToString(latex, {
         throwOnError: false,
         displayMode: true,
       });
-      
-      containerRef.current.innerHTML = html;
-      
-      if (onLoad) onLoad();
+      container.innerHTML = html;
     } catch (err) {
-      setError(err.message);
-      if (onError) onError(err);
+      container.innerHTML = `<span style="color:red">${err.message}</span>`;
     }
-  }, [latex, onLoad, onError]);
+  }, [latex]);
 
-  if (error) {
-    return <div className="math-error">Error: {error}</div>;
-  }
-
-  return <span ref={containerRef} className="math-node" />;
+  return <span ref={ref} contentEditable={false} />;
 }
