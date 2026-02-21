@@ -1,98 +1,74 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# LexiSigma Editor
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+A modular React Rich Text Editor built with Vite, Lexical, and TypeScript. It features text formatting, native tables, and an interactive KaTeX Math plugin for LaTeX. Zustand manages UI state efficiently, while a debounced JSON serialization system ensures robust autosave persistence to local storage without affecting editor performance.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+## Features
 
----
+- **Modular Architecture**: Decoupled editor core with separate plugins for rendering, persistence, and specialized node handling.
+- **Robust State Management**: Utilizes Zustand to bridge Editor UI signals (like formatting active states) safely out of Lexical bounds, while limiting complex mirroring to a serialized JSON output.
+- **KaTeX / Editable Math**: Includes a custom `MathNode` plugin that renders intricate mathematical notation in real-time, resolving to an input field upon click for precise inline editing.
+- **Native Table Support**: Grid table structures fully integrated with Lexical's native `@lexical/table`.
+- **LocalStorage Data Persistence**: Background saving with a 1-second debounce to minimize disruption to user typing speed.
+- **Modern Styled UI**: Built on top of Tailwind CSS V4 for a responsive and clean user interface.
 
-## Task Overview
+## Tech Stack
 
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
+- **Framework**: React (Vite / TypeScript)
+- **Editor**: Lexical & `@lexical/react`
+- **Global State**: Zustand
+- **Math Engine**: KaTeX
+- **Styling**: Tailwind CSS / Lucide React
 
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+## Getting Started
 
----
+### Prerequisites
 
-## Core Requirements
+Ensure you have Node.js installed (v18+ recommended).
 
-### 1. Lexical Editor Setup
+### Installation
 
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/akashcpatil111/LexiSigma.git
+   cd LexiSigma
+   ```
 
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
----
+3. Run the development server:
+   ```bash
+   npm run dev
+   ```
 
-### 2. Table Support
+### Building for Production
 
-Implement support for tables with the following capabilities:
+To create an optimized production build:
+```bash
+npm run build
+```
 
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
+## Folder Structure
 
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
-
----
-
-### 3. Mathematical Expressions
-
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
+```
+src/
+├── components/          # Editor core implementation and Error boundaries
+├── nodes/               # Custom Lexical nodes (e.g., MathNode)
+├── plugins/             # Core functionalities (Toolbar, Persistence, Math handling)
+├── store/               # Zustand state definition (useEditorStore)
+├── App.tsx              # Main layout integration
+└── main.tsx             # Entry point
+```
 
 ---
 
-### 5. Persistence (Basic)
+## Hiring Challenge Context
 
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
-
----
-
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
-
----
-
-## Notes
-
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+This project was built as a submission for the [Fullstack Hiring Challenge](https://github.com/neugence/fullstackhiringchallenge). It fulfills all the core requirements:
+1. Lexical Editor Setup (React bindings, standard architecture)
+2. Table Support (Native Lexical grid integration)
+3. Mathematical Expressions (Editable KaTeX integration)
+4. State Management (Zustand for UI signals)
+5. Persistence (Debounced JSON serialization to `localStorage`)
