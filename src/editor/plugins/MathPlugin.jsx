@@ -29,8 +29,13 @@ export default function MathPlugin() {
   };
 
   useEffect(() => {
-    useEditorStore.setState({ insertMath: insertMathAtSelection });
-  }, [editor]);
+    useEditorStore.getState().insertMath = insertMathAtSelection;
+    
+    // Cleanup function to reset the function when component unmounts
+    return () => {
+      useEditorStore.getState().insertMath = null;
+    };
+  }, [editor, insertMathAtSelection]);
 
   return null;
 }

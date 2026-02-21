@@ -8,7 +8,10 @@ import {
   $insertTableRowAtSelection,
   $insertTableColumnAtSelection,
   $deleteTableRowAtSelection,
-  $deleteTableColumnAtSelection
+  $deleteTableColumnAtSelection,
+  $getTableCellNodeFromLexicalNode,
+  $insertTableRow,
+  $insertTableColumn
 } from "@lexical/table";
 import { useEditorStore } from "../store/editorStore";
 
@@ -18,13 +21,41 @@ export default function TableControls() {
 
   const insertTableRow = () => {
     editor.update(() => {
-      $insertTableRowAtSelection(false);
+      try {
+        $insertTableRowAtSelection(false);
+      } catch (error) {
+        console.error("Error inserting table row:", error);
+        // Fallback: try to insert row using selection
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          const anchorNode = selection.anchor.getNode();
+          // Find the table cell containing the anchor node
+          const tableCell = $getTableCellNodeFromLexicalNode(anchorNode);
+          if (tableCell) {
+            $insertTableRow(tableCell, false);
+          }
+        }
+      }
     });
   };
 
   const insertTableColumn = () => {
     editor.update(() => {
-      $insertTableColumnAtSelection(false);
+      try {
+        $insertTableColumnAtSelection(false);
+      } catch (error) {
+        console.error("Error inserting table column:", error);
+        // Fallback: try to insert column using selection
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          const anchorNode = selection.anchor.getNode();
+          // Find the table cell containing the anchor node
+          const tableCell = $getTableCellNodeFromLexicalNode(anchorNode);
+          if (tableCell) {
+            $insertTableColumn(tableCell, false);
+          }
+        }
+      }
     });
   };
 
