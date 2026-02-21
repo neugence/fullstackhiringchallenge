@@ -53,6 +53,13 @@ export default function Toolbar() {
     openMathModal();
   };
 
+  const triggerSave = () => {
+    // Force the editor to update to trigger the persistence plugin
+    editor.update(() => {
+      // This will trigger the save through the persistence plugin
+    }, { discrete: true });
+  };
+
   return (
     <div className="toolbar">
       <div className="toolbar-group">
@@ -162,6 +169,13 @@ export default function Toolbar() {
           title="Insert Math Expression"
         >
           ∑
+        </button>
+        <button
+          className="toolbar-button primary"
+          onClick={triggerSave}
+          title="Save Document"
+        >
+          💾
         </button>
       </div>
     </div>
