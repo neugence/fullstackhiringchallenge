@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "@lexical/react": "^0.40.0",
+    "@lexical/table": "^0.40.0",
+    "katex": "^0.16.28",
+    "lexical": "^0.40.0",
+    "zustand": "^5.0.11"
+  }
+}

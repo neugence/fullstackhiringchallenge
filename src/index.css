@@ -1,0 +1,33 @@
+/* src/index.css */
+
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+}
+
+.app {
+  width: 800px;
+  margin: 40px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+
+.toolbar {
+  margin-bottom: 10px;
+}
+
+.toolbar button {
+  margin-right: 10px;
+  padding: 6px 12px;
+}
+
+.editor {
+  border: 1px solid #ccc;
+  min-height: 300px;
+  padding: 10px;
+}
+
+.placeholder {
+  color: gray;
+}
