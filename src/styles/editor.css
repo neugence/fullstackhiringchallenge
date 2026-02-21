@@ -1,0 +1,43 @@
+.editor-container {
+
+    max-width: 768px;
+  
+    margin: 40px auto;
+  
+    background: white;
+  
+    border-radius: 8px;
+  
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  
+  }
+  
+  .editor-input {
+  
+    min-height: 200px;
+  
+    padding: 16px;
+  
+  }
+  
+  .toolbar {
+  
+    padding: 10px;
+  
+    border-bottom: 1px solid #ddd;
+  
+  }
+  
+  .toolbar button {
+  
+    margin-right: 8px;
+  
+    padding: 6px 12px;
+  
+    background: #2563eb;
+  
+    color: white;
+  
+    border-radius: 4px;
+  
+  }

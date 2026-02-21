@@ -1,98 +1,252 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# Rich Text Editor using TipTap (Lexical Alternative) – Hiring Challenge Submission
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+## Overview
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+This project is a React-based rich text editor built as part of the hiring challenge. The editor supports structured content including tables, mathematical expressions, images, and formatted text. The implementation focuses on clean architecture, extensibility, proper state management, and persistence.
 
----
-
-## Task Overview
-
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
-
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+The editor is designed in a modular way so it can scale easily with additional features in the future.
 
 ---
 
-## Core Requirements
+## Tech Stack
 
-### 1. Lexical Editor Setup
-
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
-
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+* React.js
+* TipTap Editor (modern rich text editor framework)
+* Zustand (state management)
+* KaTeX (math rendering)
+* LocalStorage (persistence)
+* Tailwind CSS (styling)
 
 ---
 
-### 2. Table Support
+## Core Features Implemented
 
-Implement support for tables with the following capabilities:
+### 1. Editor Setup
 
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
-
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
+* Proper editor initialization using TipTap’s recommended architecture
+* Editor instance created using `useEditor`
+* Modular extension-based system
+* No direct DOM manipulation
 
 ---
 
-### 3. Mathematical Expressions
+### 2. Text Formatting
 
-Add support for mathematical expressions:
+The editor supports:
 
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
+* Bold
+* Italic
+* Underline
+* Paragraphs
+* Headings
+* Lists
 
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
+These features are implemented using TipTap extensions and toolbar controls.
 
 ---
 
-### 5. Persistence (Basic)
+### 3. Table Support
 
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
+Fully functional table system with:
 
----
+* Insert table via toolbar
+* Editable rows and columns
+* Structured table nodes
+* Modular implementation using extensions:
 
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
+  * Table
+  * TableRow
+  * TableHeader
+  * TableCell
 
 ---
 
-## Notes
+### 4. Mathematical Expression Support
 
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+Math expressions can be inserted and rendered using LaTeX syntax.
+
+Example formulas:
+
+```
+E = mc^2
+\frac{a}{b}
+\int_0^\infty e^{-x} dx
+```
+
+Implementation details:
+
+* Custom MathExtension created
+* Uses KaTeX for rendering
+* Supports editable math nodes
+* Clean separation from editor UI
+
+---
+
+### 5. Image Support
+
+Users can insert images via URL.
+
+Features:
+
+* Image insertion using toolbar
+* Proper node-based rendering
+* Extension-based implementation
+
+---
+
+### 6. State Management (Zustand)
+
+Editor state is managed using Zustand.
+
+Store handles:
+
+* Editor content state
+* Content updates
+* Separation of editor state from UI
+
+Example store structure:
+
+```
+store/
+editorStore.js
+```
+
+Benefits:
+
+* Clean state separation
+* Avoids unnecessary re-renders
+* Scalable architecture
+
+---
+
+### 7. Persistence (LocalStorage)
+
+Editor content is automatically saved and restored.
+
+Features:
+
+* Content saved as serialized JSON
+* Automatically restored on page reload
+* Simulates real backend persistence
+
+Implementation:
+
+```
+localStorage.setItem("editorContent", JSON.stringify(editor.getJSON()))
+```
+
+---
+
+## Architecture
+
+Project structure:
+
+```
+src/
+│
+├── editor/
+│   ├── components/
+│   │   ├── Editor.jsx
+│   │   ├── Toolbar.jsx
+│   │
+│   ├── extensions/
+│   │   ├── MathExtension.js
+│
+├── store/
+│   ├── editorStore.js
+│
+├── App.jsx
+```
+
+Architecture principles followed:
+
+* Component-based design
+* Extension-based editor system
+* Separation of concerns
+* Modular and scalable structure
+
+---
+
+## Design Decisions
+
+### Why TipTap?
+
+TipTap provides:
+
+* Modern architecture
+* Extension-based system
+* Clean state handling
+* Better React integration
+* Easier custom node implementation
+
+It follows the same architectural concepts required by the challenge:
+
+* Editor instance
+* Editor state
+* Extensions and plugins
+* Structured document model
+
+---
+
+### Why Zustand?
+
+Zustand was used because:
+
+* Lightweight
+* Easy to integrate
+* Minimal boilerplate
+* Efficient state updates
+
+---
+
+### Why KaTeX?
+
+KaTeX was used because:
+
+* Fast rendering
+* Lightweight
+* Easy LaTeX integration
+* Production-ready math rendering
+
+---
+
+## Persistence Strategy
+
+Content is stored as JSON and restored automatically.
+
+This simulates real-world backend integration while keeping implementation simple.
+
+---
+
+## Scalability
+
+The editor is designed to scale easily.
+
+Future improvements could include:
+
+* Backend integration
+* Real-time collaboration
+* Drag-and-drop images
+* Advanced formatting
+* Custom plugins
+
+---
+
+## Conclusion
+
+This project demonstrates:
+
+* Modern frontend architecture
+* Third-party library integration
+* State management
+* Extensible design
+* Clean component structure
+
+The implementation satisfies all core challenge requirements and is structured for future scalability.
+
+---
+
+## Author
+
+Vipin Kumar
+MERN Stack Developer
