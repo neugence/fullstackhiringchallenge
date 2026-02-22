@@ -1,0 +1,175 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+  color: #1a1a1a;
+  background: #f5f5f5;
+}
+
+.app {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1.5rem;
+}
+
+.app-header {
+  margin-bottom: 1rem;
+}
+
+.app-header h1 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.5rem;
+}
+
+.app-header p {
+  margin: 0;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+/* Toolbar */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #ddd;
+  margin-bottom: 0.75rem;
+}
+
+.toolbar-btn {
+  padding: 0.4rem 0.75rem;
+  font-size: 0.875rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.toolbar-btn:hover {
+  background: #f0f0f0;
+  border-color: #999;
+}
+
+.toolbar-hint {
+  font-size: 0.8rem;
+  color: #888;
+  margin-left: 0.5rem;
+}
+
+/* Editor */
+.editor-container {
+  position: relative;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  min-height: 280px;
+}
+
+.editor-input {
+  outline: none;
+  padding: 1rem;
+  min-height: 260px;
+}
+
+.editor-placeholder {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  color: #999;
+  pointer-events: none;
+}
+
+/* Lexical theme classes */
+.editor-paragraph {
+  margin: 0 0 0.5rem 0;
+}
+
+.editor-text-bold {
+  font-weight: bold;
+}
+
+.editor-text-italic {
+  font-style: italic;
+}
+
+.editor-text-underline {
+  text-decoration: underline;
+}
+
+.editor-text-code {
+  font-family: ui-monospace, monospace;
+  background: #f0f0f0;
+  padding: 0.1em 0.3em;
+  border-radius: 4px;
+}
+
+/* Table */
+.editor-table {
+  border-collapse: collapse;
+  margin: 0.5rem 0;
+  width: 100%;
+}
+
+.editor-table-cell,
+.editor-table-cell-header {
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.6rem;
+  min-width: 80px;
+}
+
+.editor-table-cell-header {
+  background: #f0f0f0;
+  font-weight: 600;
+}
+
+/* Math */
+.math-inline {
+  display: inline;
+  cursor: pointer;
+  padding: 0 2px;
+  margin: 0 1px;
+  background: #f8f8f8;
+  border-radius: 4px;
+}
+
+.math-inline:hover {
+  background: #eee;
+}
+
+.math-editor-wrap {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.math-editor-input {
+  font-family: ui-monospace, monospace;
+  font-size: 0.9em;
+  padding: 0.2rem 0.4rem;
+  min-width: 120px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.math-editor-save {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background: #fff;
+  cursor: pointer;
+}
+
+.math-error {
+  color: #c00;
+  font-size: 0.9em;
+}

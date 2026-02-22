@@ -1,0 +1,15 @@
+/**
+ * Copyright (c) Meta Platforms, Inc. and affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ *
+ */
+
+'use strict';var g=require("lexical");function r(){return g.$getRoot().getTextContent()}function u(b,e=!0){if(b)return!1;b=r();e&&(b=b.trim());return""===b}function v(b){if(!u(b,!1))return!1;b=g.$getRoot().getChildren();let e=b.length;if(1<e)return!1;for(let f=0;f<e;f++){var a=b[f];if(g.$isDecoratorNode(a))return!1;if(g.$isElementNode(a)){if(!g.$isParagraphNode(a)||0!==a.__indent)return!1;a=a.getChildren();let n=a.length;for(let t=0;t<n;t++)if(!g.$isTextNode(a[f]))return!1}}return!0}var w;
+function x(b){let e=new URLSearchParams;e.append("code",b);for(let a=1;a<arguments.length;a++)e.append("v",arguments[a]);throw Error(`Minified Lexical error #${b}; visit https://lexical.dev/docs/error?${e} for the full message or `+"use the non-minified dev environment for full errors and additional helpful warnings.");}w=x&&x.__esModule&&Object.prototype.hasOwnProperty.call(x,"default")?x["default"]:x;exports.$canShowPlaceholder=v;exports.$canShowPlaceholderCurry=function(b){return()=>v(b)};
+exports.$findTextIntersectionFromCharacters=function(b,e){var a=b.getFirstChild();b=0;a:for(;null!==a;){if(g.$isElementNode(a)){var f=a.getFirstChild();if(null!==f){a=f;continue}}else if(g.$isTextNode(a)){f=a.getTextContentSize();if(b+f>e)return{node:a,offset:e-b};b+=f}f=a.getNextSibling();if(null!==f)a=f;else{for(a=a.getParent();null!==a;){f=a.getNextSibling();if(null!==f){a=f;continue a}a=a.getParent()}break}}return null};exports.$isRootTextContentEmpty=u;
+exports.$isRootTextContentEmptyCurry=function(b,e){return()=>u(b,e)};exports.$rootTextContent=r;
+exports.registerLexicalTextEntity=function(b,e,a,f){let n=d=>{const c=g.$createTextNode(d.getTextContent());c.setFormat(d.getFormat());d.replace(c)},t=b.registerNodeTransform(g.TextNode,d=>{if(d.isSimpleText()){var c=d.getPreviousSibling(),k=d.getTextContent(),m=d;if(g.$isTextNode(c)){var l=c.getTextContent();var h=e(l+k);if(c instanceof a){if(null===h||0!==c.getLatest().__mode){n(c);return}h=h.end-l.length;if(0<h){m=k.slice(0,h);m=l+m;c.select();c.setTextContent(m);h===k.length?d.remove():(k=k.slice(h),
+d.setTextContent(k));return}}else if(null===h||h.start<l.length)return}for(d=0;;){l=e(k);var p=null===l?"":k.slice(l.end);k=p;if(""===p&&(h=m.getNextSibling(),g.$isTextNode(h)))if(p=m.getTextContent()+h.getTextContent(),p=e(p),null===p){h instanceof a?n(h):h.markDirty();break}else if(0!==p.start)break;if(null===l)break;if(0===l.start&&g.$isTextNode(c)&&c.isTextEntity()){d+=l.end;continue}let q;0===l.start?[q,m]=m.splitText(l.end):[,q,m]=m.splitText(l.start+d,l.end+d);void 0===q&&w(165,"nodeToReplace");
+c=f(q);c.setFormat(q.getFormat());q.replace(c);if(null==m)break;d=0}}});b=b.registerNodeTransform(a,d=>{var c=d.getTextContent();const k=e(c);null===k||0!==k.start?n(d):c.length>k.end?d.splitText(k.end):(c=d.getPreviousSibling(),g.$isTextNode(c)&&c.isTextEntity()&&(n(c),n(d)),c=d.getNextSibling(),g.$isTextNode(c)&&c.isTextEntity()&&(n(c),d instanceof a&&n(d)))});return[t,b]}
