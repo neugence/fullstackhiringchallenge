@@ -1,98 +1,52 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# Lexical Rich Text Editor
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+A React-based rich text editor built using the Lexical framework, fulfilling the requirements for the full-stack hiring challenge.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+![App Screenshot](./app_screenshot.png)
 
----
+## Features
 
-## Task Overview
+- **Built with Lexical:** Modern, extensible editor architecture utilizing Lexical's React bindings.
+- **Rich Text Formatting:** Bold, Italic, Underline, Strikethrough, and Code block support.
+- **Table Support:** Insert, edit, and layout functional data tables directly within the editor.
+- **Mathematical Expressions:** Uses KaTeX to render LaTeX expressions either inline or as block equations. Formulas are fully editable via a custom modal interface.
+- **State Management:** Editor UI state (Toolbar, modals) and persistence logics are managed via robust **Zustand** stores, ensuring UI state remains cleanly decoupled from the Editor DOM.
+- **Persistence:** Automatically saves editor content into `localStorage` (simulated API), persisting your text across reloads. 
 
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
+## Project Architecture & Design Decisions
 
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+- **Modularity:** 
+  - **`src/editor/`**: Centralizes all Lexical configurations, core plugins, and custom node definitions mapping out the editor experience. 
+  - **`src/components/`**: Houses all external React UI elements (Toolbar, Modals). UI logic and Editor state are kept strictly separated. UI uses `useLexicalComposerContext` to dispatch Lexical Commands without deeply entangling rendering behaviors.
+  - **`src/store/`**: Using **Zustand** v5 for app-wide state limits unnecessary deeply nested prop-drilling, and effectively mitigates React `getSnapshot` infinite re-render loops by leveraging `useShallow`.
 
----
+- **Extensibility:** The mathematical equation parser (`MathNode.tsx` & `MathPlugin.tsx`) relies on standard Lexical Decorator Nodes—an approach easily replicable for embedding Video nodes, Image nodes, or any future complex widgets.
 
-## Core Requirements
+## Installation and Setup
 
-### 1. Lexical Editor Setup
+### Prerequisites
+- Node.js (v18 or higher recommended)
+- npm or yarn
 
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
+### 1. Clone the repository
+```bash
+git clone https://github.com/INFINITYv69/fullstackhiringchallenge.git
+cd fullstackhiringchallenge
+```
 
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+### 2. Install dependencies
+```bash
+npm install
+```
 
----
+### 3. Start the development server
+```bash
+npm run dev
+```
+The application will be available at `http://localhost:5173`.
 
-### 2. Table Support
-
-Implement support for tables with the following capabilities:
-
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
-
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
-
----
-
-### 3. Mathematical Expressions
-
-Add support for mathematical expressions:
-
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
-
-Focus on **correctness and integration**, not visual perfection.
-
----
-
-### 4. State Management
-
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
-
-We are more interested in **state modeling decisions** than overall complexity.
-
----
-
-### 5. Persistence (Basic)
-
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
-
----
-
-## Architecture & Design Expectations
-
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
-
----
-
-## Notes
-
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+### 4. Build for Production
+To output the final, optimized bundle into the `dist/` directory, run:
+```bash
+npm run build
+```
