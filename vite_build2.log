@@ -1,0 +1,21 @@
+[36mvite v7.3.1 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32m✓[39m 3 modules transformed.
+[31m✗[39m Build failed in 61ms
+[31merror during build:
+[31m[vite:css] Failed to load PostCSS config (searchPath: C:/Users/chakr/Downloads/prot2): [Error] Loading PostCSS Plugin failed: Cannot find module 'tailwindcss'
+Require stack:
+- C:\Users\chakr\Downloads\postcss.config.js
+
+(@C:\Users\chakr\Downloads\postcss.config.js)
+Error: Loading PostCSS Plugin failed: Cannot find module 'tailwindcss'
+Require stack:
+- C:\Users\chakr\Downloads\postcss.config.js
+
+(@C:\Users\chakr\Downloads\postcss.config.js)
+    at load (file:///C:/Users/chakr/Downloads/prot2/node_modules/vite/dist/node/chunks/config.js:7660:10)
+    at async Promise.all (index 0)
+    at async plugins (file:///C:/Users/chakr/Downloads/prot2/node_modules/vite/dist/node/chunks/config.js:7682:11)
+    at async processResult (file:///C:/Users/chakr/Downloads/prot2/node_modules/vite/dist/node/chunks/config.js:7721:13)[31m
+file: [36mC:/Users/chakr/Downloads/prot2/node_modules/katex/dist/katex.min.css[31m
+[39m

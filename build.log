@@ -1,0 +1,8 @@
+﻿
+> prot2@0.0.0 build
+> tsc -b && vite build
+
+src/components/TableDialog.tsx(8,8): error TS6133: 'React' is declared but its value is never read.
+src/editor/nodes/MathNode.tsx(89,45): error TS2503: Cannot find namespace 'JSX'.
+src/editor/nodes/MathNode.tsx(154,17): error TS2503: Cannot find namespace 'JSX'.
+src/editor/plugins/TablePlugin.tsx(13,1): error TS6133: 'COMMAND_PRIORITY_EDITOR' is declared but its value is never read.
