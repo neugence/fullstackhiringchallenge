@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import katex from "katex";
 import "katex/dist/katex.min.css";
-import { useEditorStore } from "../store/editorStore";
+import { useEditorStore } from "../../store/editorStore";
 
 export default function MathInputModal() {
   const { isMathModalOpen, closeMathModal, insertMath } = useEditorStore();
@@ -18,7 +18,7 @@ export default function MathInputModal() {
   const handleLatexChange = (e) => {
     const value = e.target.value;
     setLatexInput(value);
-    
+
     // Validate LaTeX in real-time
     try {
       katex.renderToString(value, { throwOnError: false });
@@ -57,15 +57,15 @@ export default function MathInputModal() {
       <div className="modal-content">
         <div className="modal-header">
           <h3>Insert Mathematical Expression</h3>
-          <button 
-            className="modal-close" 
+          <button
+            className="modal-close"
             onClick={closeMathModal}
             aria-label="Close"
           >
             ×
           </button>
         </div>
-        
+
         <div className="modal-body">
           <div className="input-group">
             <label htmlFor="latex-input">LaTeX Expression:</label>
@@ -109,22 +109,22 @@ export default function MathInputModal() {
           <div className="examples">
             <label>Examples:</label>
             <div className="example-buttons">
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setLatexInput("\\int_{0}^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}")}
                 className="example-button"
               >
                 Gaussian Integral
               </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setLatexInput("E = mc^2")}
                 className="example-button"
               >
                 Einstein's Equation
               </button>
-              <button 
-                type="button" 
+              <button
+                type="button"
                 onClick={() => setLatexInput("\\sum_{n=1}^{\\infty} \\frac{1}{n^2} = \\frac{\\pi^2}{6}")}
                 className="example-button"
               >
@@ -135,14 +135,14 @@ export default function MathInputModal() {
         </div>
 
         <div className="modal-footer">
-          <button 
-            onClick={closeMathModal} 
+          <button
+            onClick={closeMathModal}
             className="button secondary"
           >
             Cancel
           </button>
-          <button 
-            onClick={handleInsertMath} 
+          <button
+            onClick={handleInsertMath}
             className="button primary"
             disabled={!latexInput.trim() || previewError}
           >

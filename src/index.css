@@ -567,36 +567,75 @@ body {
   border-collapse: collapse;
   width: 100%;
   margin: 12px 0;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  border-radius: 8px;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
   overflow: hidden;
-  border: 1px solid #dee2e6;
+  border: 2px solid #495057;
   background: white;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+.editor-table-row {
+  transition: all 0.2s ease;
 }
 
 .editor-table-cell {
-  border: 1px solid #dee2e6;
-  padding: 16px;
+  border: 2px solid #495057 !important;
+  padding: 14px 18px;
   vertical-align: top;
   background: white;
   transition: all 0.2s ease;
-  min-width: 100px;
+  min-width: 120px;
   position: relative;
+  font-size: 15px;
+  color: #212529;
+  line-height: 1.5;
 }
 
 .editor-table-cell:hover {
   background: #f8f9fa;
-  box-shadow: inset 0 0 0 1px #007bff;
+  box-shadow: inset 0 0 0 2px #0d6efd;
+  transform: translateY(-1px);
 }
 
 .editor-table-cell-header {
-  background: linear-gradient(180deg, #e9ecef 0%, #dee2e6 100%);
+  background: #e9ecef !important;
   font-weight: 600;
   color: #212529;
-  padding: 16px;
-  border-bottom: 2px solid #adb5bd;
+  padding: 16px 18px;
+  border: 2px solid #495057 !important;
   text-align: center;
   position: relative;
+  font-size: 16px;
+  background: linear-gradient(180deg, #e9ecef 0%, #ced4da 100%) !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.editor-table-row:last-child .editor-table-cell {
+  border-bottom: 2px solid #495057 !important;
+}
+
+.editor-table-row:last-child .editor-table-cell-header {
+  border-bottom: 2px solid #495057 !important;
+}
+
+.editor-table-caption {
+  caption-side: bottom;
+  text-align: left;
+  padding: 10px;
+  color: #6c757d;
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 500;
+}
+
+/* Additional styling for better visual appearance */
+.editor-table tr:nth-child(even) {
+  background-color: #f8f9fa;
+}
+
+.editor-table tr:hover {
+  background-color: #f1f8ff;
 }
 
 /* Responsive Design */

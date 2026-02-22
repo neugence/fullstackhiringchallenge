@@ -1,39 +1,31 @@
 import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { TablePlugin as LexicalTablePlugin } from "@lexical/react/LexicalTablePlugin";
+import { INSERT_TABLE_COMMAND } from "@lexical/table";
 import { useEditorStore } from "../../store/editorStore";
 
 export default function TablePlugin() {
   const [editor] = useLexicalComposerContext();
-  const { showTableControls, hideTableControls } = useEditorStore();
 
-  // Listen for table selection changes to show/hide controls
   useEffect(() => {
-    const unregister = editor.registerUpdateListener(({ editorState }) => {
-      editorState.read(() => {
-        // Check if we're inside a table
-        const selection = window.getSelection();
-        if (selection && selection.anchorNode) {
-          // Get the closest element node (since anchorNode might be a text node)
-          let element = selection.anchorNode;
-          if (element.nodeType === Node.TEXT_NODE) {
-            element = element.parentElement;
-          }
-          
-          if (element && element.closest) {
-            const tableElement = element.closest('table');
-            if (tableElement) {
-              showTableControls();
-            }
-          }
-        }
+    const handleInsertTable = (rows, cols) => {
+      editor.dispatchCommand(INSERT_TABLE_COMMAND, {
+        rows: String(rows || 3),
+        columns: String(cols || 3),
       });
+    };
+
+    // Register the function with the store
+    useEditorStore.setState({
+      insertTable: handleInsertTable
     });
 
     return () => {
-      unregister();
+      // Clean up
+      useEditorStore.setState({
+        insertTable: null
+      });
     };
   }, [editor]);
 
-  return <LexicalTablePlugin />;
+  return null;
 }

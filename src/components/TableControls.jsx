@@ -1,100 +1,7 @@
-import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getSelection, $isRangeSelection, $getNodeByKey } from "lexical";
-import { 
-  INSERT_TABLE_COMMAND,
-  $getTableNodeFromLexicalNodeOrThrow,
-  $getTableRowNodeFromTableCellNodeOrThrow,
-  $isTableNode,
-  $insertTableRowAtSelection,
-  $insertTableColumnAtSelection,
-  $deleteTableRowAtSelection,
-  $deleteTableColumnAtSelection,
-  $getTableCellNodeFromLexicalNode,
-  $insertTableRow,
-  $insertTableColumn
-} from "@lexical/table";
 import { useEditorStore } from "../store/editorStore";
 
 export default function TableControls() {
-  const [editor] = useLexicalComposerContext();
   const { isTableControlsVisible, hideTableControls } = useEditorStore();
-
-  const insertTableRow = () => {
-    editor.update(() => {
-      try {
-        $insertTableRowAtSelection(false);
-      } catch (error) {
-        console.error("Error inserting table row:", error);
-        // Fallback: try to insert row using selection
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          const anchorNode = selection.anchor.getNode();
-          // Find the table cell containing the anchor node
-          const tableCell = $getTableCellNodeFromLexicalNode(anchorNode);
-          if (tableCell) {
-            $insertTableRow(tableCell, false);
-          }
-        }
-      }
-    });
-  };
-
-  const insertTableColumn = () => {
-    editor.update(() => {
-      try {
-        $insertTableColumnAtSelection(false);
-      } catch (error) {
-        console.error("Error inserting table column:", error);
-        // Fallback: try to insert column using selection
-        const selection = $getSelection();
-        if ($isRangeSelection(selection)) {
-          const anchorNode = selection.anchor.getNode();
-          // Find the table cell containing the anchor node
-          const tableCell = $getTableCellNodeFromLexicalNode(anchorNode);
-          if (tableCell) {
-            $insertTableColumn(tableCell, false);
-          }
-        }
-      }
-    });
-  };
-
-  const deleteTableRow = () => {
-    editor.update(() => {
-      $deleteTableRowAtSelection();
-    });
-  };
-
-  const deleteTableColumn = () => {
-    editor.update(() => {
-      $deleteTableColumnAtSelection();
-    });
-  };
-
-  const deleteTable = () => {
-    editor.update(() => {
-      const selection = $getSelection();
-      if ($isRangeSelection(selection)) {
-        const anchorNode = selection.anchor.getNode();
-        try {
-          const tableNode = $getTableNodeFromLexicalNodeOrThrow(anchorNode);
-          if (tableNode) {
-            tableNode.remove();
-          }
-        } catch (error) {
-          // If the anchor node is not in a table, try to find the nearest table
-          let currentNode = anchorNode;
-          while (currentNode && !$isTableNode(currentNode)){
-            currentNode = currentNode.getParent();
-          }
-          if (currentNode) {
-            currentNode.remove();
-          }
-        }
-      }
-    });
-    hideTableControls();
-  };
 
   if (!isTableControlsVisible) {
     return null;
@@ -115,54 +22,46 @@ export default function TableControls() {
       
       <div className="table-controls-grid">
         <div className="control-group">
-          <h4>Rows</h4>
+          <h4>Actions</h4>
           <div className="button-row">
             <button 
               className="control-button"
-              onClick={insertTableRow}
-              title="Add row below"
+              onClick={() => alert("Add row functionality would go here")}
+              title="Add row"
             >
               + Row
             </button>
             <button 
-              className="control-button danger"
-              onClick={deleteTableRow}
-              title="Delete current row"
-            >
-              - Row
-            </button>
-          </div>
-        </div>
-
-        <div className="control-group">
-          <h4>Columns</h4>
-          <div className="button-row">
-            <button 
               className="control-button"
-              onClick={insertTableColumn}
-              title="Add column right"
+              onClick={() => alert("Add column functionality would go here")}
+              title="Add column"
             >
               + Col
             </button>
+          </div>
+          <div className="button-row">
             <button 
               className="control-button danger"
-              onClick={deleteTableColumn}
-              title="Delete current column"
+              onClick={() => alert("Delete row functionality would go here")}
+              title="Delete row"
+            >
+              - Row
+            </button>
+            <button 
+              className="control-button danger"
+              onClick={() => alert("Delete column functionality would go here")}
+              title="Delete column"
             >
               - Col
             </button>
           </div>
-        </div>
-
-        <div className="control-group">
-          <h4>Table</h4>
           <div className="button-row">
             <button 
               className="control-button danger"
-              onClick={deleteTable}
-              title="Delete entire table"
+              onClick={hideTableControls}
+              title="Close controls"
             >
-              Delete Table
+              Close
             </button>
           </div>
         </div>

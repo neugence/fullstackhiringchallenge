@@ -1,41 +1,45 @@
 import { useEffect } from "react";
 import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
-import { $getSelection, $isRangeSelection } from "lexical";
-import { useEditorStore } from "../../store/editorStore";
 import { $createMathNode } from "../nodes/MathNode";
+import {
+  $getSelection,
+  $isRangeSelection,
+  $getRoot,
+  $createParagraphNode,
+} from "lexical";
+import { useEditorStore } from "../../store/editorStore";
 
 export default function MathPlugin() {
   const [editor] = useLexicalComposerContext();
 
   useEffect(() => {
-    const handleKeyDown = (event) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === "m") {
-        event.preventDefault();
-        useEditorStore.getState().openMathModal();
-      }
+    const handleInsertMath = (latex) => {
+      editor.update(() => {
+        const mathNode = $createMathNode(latex);
+        const selection = $getSelection();
+        if ($isRangeSelection(selection)) {
+          selection.insertNodes([mathNode]);
+        } else {
+          const root = $getRoot();
+          const paragraph = $createParagraphNode();
+          paragraph.append(mathNode);
+          root.append(paragraph);
+        }
+      });
     };
 
-    document.addEventListener("keydown", handleKeyDown);
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, []);
-
-  const insertMathAtSelection = (latex) => {
-    editor.update(() => {
-      const selection = $getSelection();
-      if ($isRangeSelection(selection)) {
-        selection.insertNodes([$createMathNode(latex)]);
-      }
+    // Register the function with the store
+    useEditorStore.setState({
+      insertMath: handleInsertMath
     });
-  };
 
-  useEffect(() => {
-    useEditorStore.getState().insertMath = insertMathAtSelection;
-    
-    // Cleanup function to reset the function when component unmounts
     return () => {
-      useEditorStore.getState().insertMath = null;
+      // Clean up
+      useEditorStore.setState({
+        insertMath: null
+      });
     };
-  }, [editor, insertMathAtSelection]);
+  }, [editor]);
 
   return null;
 }

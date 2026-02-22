@@ -1,14 +1,14 @@
-import React from "react";
 import { DecoratorNode } from "lexical";
+import { $applyNodeReplacement } from "lexical";
+import React from "react";
 import MathComponent from "../components/MathComponent";
-import "katex/dist/katex.min.css";
 
 export class MathNode extends DecoratorNode {
-  constructor(latex, key) {
+  __latex;
+
+  constructor(latex = "", key) {
     super(key);
-    this.__latex =
-      latex ||
-      "\\int_{0}^{\\infty} e^{-x^2} dx = \\frac{\\sqrt{\\pi}}{2}";
+    this.__latex = latex;
   }
 
   static getType() {
@@ -19,8 +19,22 @@ export class MathNode extends DecoratorNode {
     return new MathNode(node.__latex, node.__key);
   }
 
-  static importJSON(serializedNode) {
-    return new MathNode(serializedNode.latex);
+  createDOM() {
+    const element = document.createElement("span");
+    element.classList.add("math-node");
+    return element;
+  }
+
+  updateDOM() {
+    return false;
+  }
+
+  decorate() {
+    return <MathComponent latex={this.__latex} />;
+  }
+
+  isInline() {
+    return true;
   }
 
   exportJSON() {
@@ -31,20 +45,24 @@ export class MathNode extends DecoratorNode {
     };
   }
 
-  createDOM() {
-    const span = document.createElement("span");
-    return span;
+  static importJSON(serializedNode) {
+    return new MathNode(serializedNode.latex);
   }
 
-  updateDOM() {
-    return false;
+  setLatex(latex) {
+    this.getWritable().__latex = latex;
   }
 
-  decorate() {
-    return <MathComponent latex={this.__latex} />;
+  getLatex() {
+    return this.__latex;
   }
 }
 
 export function $createMathNode(latex) {
-  return new MathNode(latex);
+  const mathNode = new MathNode(latex);
+  return $applyNodeReplacement(mathNode);
+}
+
+export function $isMathNode(node) {
+  return node instanceof MathNode;
 }

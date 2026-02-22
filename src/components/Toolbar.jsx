@@ -41,9 +41,17 @@ export default function Toolbar() {
   };
 
   const insertTable = () => {
+    const rowsInput = prompt("Enter number of rows:", "3");
+    if (rowsInput === null) return; // User cancelled
+    const rows = parseInt(rowsInput) || 3;
+    
+    const colsInput = prompt("Enter number of columns:", "3");
+    if (colsInput === null) return; // User cancelled
+    const cols = parseInt(colsInput) || 3;
+    
     editor.dispatchCommand(INSERT_TABLE_COMMAND, {
-      rows: 3,
-      columns: 3,
+      rows: String(rows),
+      columns: String(cols),
       includeHeaders: true,
     });
     showTableControls();
