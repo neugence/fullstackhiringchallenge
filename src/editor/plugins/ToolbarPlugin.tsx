@@ -1,0 +1,97 @@
+import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext";
+import { $getRoot, $getSelection, $createParagraphNode, $isRangeSelection } from "lexical";
+import { $createTableNodeWithDimensions } from "@lexical/table";
+import { MathNode } from "../nodes/MathNode";
+import { useEditorStore } from "../../store/editorStore";
+
+const TABLE_CONFIG = {
+  defaultRows: 3,
+  defaultColumns: 3,
+};
+
+const MATH_TEMPLATES = {
+  fraction: "\\frac{a}{b}",
+  sqrt: "\\sqrt{x}",
+  sum: "\\sum_{i=1}^{n} x_i",
+  integral: "\\int_{a}^{b} f(x) dx",
+};
+
+export default function ToolbarPlugin() {
+  const [editor] = useLexicalComposerContext();
+  const isToolbarVisible = useEditorStore((state) => state.isToolbarVisible);
+  const setToolbarVisible = useEditorStore((state) => state.setToolbarVisible);
+
+  if (!isToolbarVisible) {
+    return null;
+  }
+
+  const insertTable = (rows = TABLE_CONFIG.defaultRows, cols = TABLE_CONFIG.defaultColumns) => {
+    editor.focus();
+    editor.update(() => {
+      const table = $createTableNodeWithDimensions(rows, cols);
+      $getRoot().append(table);
+    });
+  };
+
+  const insertMath = (formula = MATH_TEMPLATES.fraction) => {
+    editor.focus();
+    editor.update(() => {
+      const mathNode = new MathNode(formula);
+      const selection = $getSelection();
+      
+      if (selection && $isRangeSelection(selection)) {
+        selection.insertNodes([mathNode]);
+      } else {
+        const root = $getRoot();
+        const paragraph = $createParagraphNode();
+        paragraph.append(mathNode);
+        root.append(paragraph);
+        paragraph.selectEnd();
+      }
+    });
+  };
+
+  const clearEditor = () => {
+    editor.update(() => {
+      const root = $getRoot();
+      root.clear();
+    });
+  };
+
+  return (
+    <div style={{ 
+      marginBottom: "16px", 
+      padding: "12px 16px",
+      background: "#2a2a2a",
+      borderRadius: "10px",
+      display: "flex",
+      gap: "10px",
+      alignItems: "center",
+      flexWrap: "wrap",
+      boxShadow: "0 2px 8px rgba(0, 0, 0, 0.2)"
+    }}>
+      <button onClick={() => insertTable()}>
+        Insert Table
+      </button>
+
+      <button onClick={() => insertMath()}>
+        Insert Math
+      </button>
+
+      <button onClick={clearEditor} style={{marginLeft: "auto"}}>
+        Clear
+      </button>
+
+      <button onClick={() => setToolbarVisible(false)}>
+        Hide Toolbar
+      </button>
+    </div>
+  );
+}
+
+const buttonStyle: React.CSSProperties = {
+  padding: "8px 16px",
+  border: "1px solid #000",
+  cursor: "pointer",
+  fontSize: "14px",
+};

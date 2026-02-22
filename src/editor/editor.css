@@ -1,0 +1,17 @@
+.editor-table {
+  border-collapse: collapse;
+  width: 100%;
+  margin: 12px 0;
+}
+
+.editor-table td,
+.editor-table th {
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 8px 12px;
+  min-width: 60px;
+}
+
+.editor-table tr:first-child td {
+  font-weight: 600;
+  background-color: rgba(100, 108, 255, 0.1);
+}
