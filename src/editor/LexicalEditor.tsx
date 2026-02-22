@@ -2,7 +2,6 @@ import ToolbarPlugin from "./plugins/ToolbarPlugin";
 import AutoSavePlugin from "./plugins/AutoSavePlugin";
 import LoadStatePlugin from "./plugins/LoadStatePlugin";
 import { TablePlugin } from "@lexical/react/LexicalTablePlugin";
-//import { TableCellResizer } from "@lexical/react/LexicalTableCellResizer";
 import { LexicalComposer } from "@lexical/react/LexicalComposer";
 import { RichTextPlugin } from "@lexical/react/LexicalRichTextPlugin";
 import { ContentEditable } from "@lexical/react/LexicalContentEditable";
@@ -18,22 +17,10 @@ const theme = {
     table: "editor-table",
 };
 
-/**
- * LexicalErrorBoundary - Simple error boundary for RichTextPlugin
- * Returns children directly to avoid breaking the editor on errors
- */
 function LexicalErrorBoundary({ children }: { children: ReactNode }): ReactNode {
   return children;
 }
 
-/**
- * Editor Configuration
- * 
- * Registered Nodes:
- * - HeadingNode, QuoteNode: Rich text support
- * - TableNode, TableCellNode, TableRowNode: Table functionality
- * - MathNode: Custom mathematical expressions
- */
 const initialConfig = {
   namespace: "LaTeXEditor",
   theme,
@@ -43,21 +30,6 @@ const initialConfig = {
   },
 };
 
-/**
- * LexicalEditor - Main editor component
- * 
- * Architecture:
- * - Plugin-based design for modularity
- * - Zustand for state management (content + UI state)
- * - localStorage for persistence
- * - Auto-save with debouncing for performance
- * 
- * State Management:
- * - serializedContent: Auto-synced editor state
- * - savedContent: Persisted state in localStorage
- * - isDirty: Tracks unsaved changes
- * - isToolbarVisible: UI state
- */
 export default function LexicalEditor() {
   const setToolbarVisible = useEditorStore((state) => state.setToolbarVisible);
   const serializedContent = useEditorStore((state) => state.serializedContent);
@@ -66,7 +38,6 @@ export default function LexicalEditor() {
   const markAsSaved = useEditorStore((state) => state.markAsSaved);
   const setSavedContent = useEditorStore((state) => state.setSavedContent);
 
-  // Load from localStorage on mount (persistence layer)
   const initialState = savedContent || localStorage.getItem("lexical-editor-state");
 
   const handleSave = () => {
@@ -83,7 +54,7 @@ export default function LexicalEditor() {
     const saved = localStorage.getItem("lexical-editor-state");
     if (saved) {
       setSavedContent(saved);
-      window.location.reload(); // Reload to properly restore editor state
+      window.location.reload();
     } else {
       alert("No saved content found!");
     }
@@ -91,7 +62,6 @@ export default function LexicalEditor() {
 
   return (
     <div style={{ maxWidth: "100%" }}>
-      {/* Control Bar */}
       <div style={{
         padding: "16px 20px",
         background: "#2a2a2a",
@@ -164,7 +134,6 @@ export default function LexicalEditor() {
         <TablePlugin />
         <AutoSavePlugin />
         <LoadStatePlugin initialState={initialState} />
-        {/* <TableCellResizer /> */}
       </LexicalComposer>
     </div>
   );

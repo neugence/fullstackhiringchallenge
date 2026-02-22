@@ -4,16 +4,6 @@ import { $createTableNodeWithDimensions } from "@lexical/table";
 import { MathNode } from "../nodes/MathNode";
 import { useEditorStore } from "../../store/editorStore";
 
-/**
- * ToolbarPlugin - Provides UI controls for inserting content
- * 
- * Extensibility Design:
- * - Table dimensions are configurable (not hardcoded)
- * - Math expressions support different LaTeX formulas
- * - Easy to extend with new insertion types
- */
-
-// Configuration for easy extensibility
 const TABLE_CONFIG = {
   defaultRows: 3,
   defaultColumns: 3,
@@ -35,10 +25,6 @@ export default function ToolbarPlugin() {
     return null;
   }
 
-  /**
-   * Insert table with configurable dimensions
-   * Extensibility: Easy to add UI for custom size selection in future
-   */
   const insertTable = (rows = TABLE_CONFIG.defaultRows, cols = TABLE_CONFIG.defaultColumns) => {
     editor.focus();
     editor.update(() => {
@@ -47,10 +33,6 @@ export default function ToolbarPlugin() {
     });
   };
 
-  /**
-   * Insert math node with LaTeX formula
-   * Extensibility: Supports different templates, ready for modal picker
-   */
   const insertMath = (formula = MATH_TEMPLATES.fraction) => {
     editor.focus();
     editor.update(() => {
@@ -60,7 +42,6 @@ export default function ToolbarPlugin() {
       if (selection && $isRangeSelection(selection)) {
         selection.insertNodes([mathNode]);
       } else {
-        // If no selection, append to a new paragraph at the end
         const root = $getRoot();
         const paragraph = $createParagraphNode();
         paragraph.append(mathNode);
@@ -70,7 +51,6 @@ export default function ToolbarPlugin() {
     });
   };
 
-  // Clear editor content
   const clearEditor = () => {
     editor.update(() => {
       const root = $getRoot();
