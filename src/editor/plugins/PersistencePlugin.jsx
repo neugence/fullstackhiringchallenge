@@ -3,35 +3,39 @@ import { useLexicalComposerContext } from "@lexical/react/LexicalComposerContext
 import { useEditorStore } from "../../store/editorStore";
 
 const STORAGE_KEY = "lexical-editor-content";
-const DEBOUNCE_DELAY = 1000; // 1 second debounce
+const DEBOUNCE_DELAY = 1000;
 
 export default function PersistencePlugin() {
   const [editor] = useLexicalComposerContext();
-  const { 
-    setEditorJSON, 
-    setEditorState, 
-    setError, 
+  const {
+    setEditorJSON,
+    setEditorState,
+    setError,
     clearError,
     setLoading,
-    markSaved
+    markSaved,
   } = useEditorStore();
 
   useEffect(() => {
     let saveTimeout;
-    
+
     const loadSavedContent = () => {
       try {
         setLoading(true);
         clearError();
-        
         const saved = localStorage.getItem(STORAGE_KEY);
-        
         if (saved) {
           const parsed = JSON.parse(saved);
           const editorState = editor.parseEditorState(parsed);
-          editor.setEditorState(editorState);
-          setEditorState(editorState);
-          setEditorJSON(parsed);
+
+          // ✅ Defer setEditorState until AFTER React finishes rendering
+          // Calling it synchronously inside useEffect triggers flushSync
+          // while React is still committing — this moves it safely outside
+          queueMicrotask(() => {
+            editor.setEditorState(editorState);
+            setEditorState(editorState);
+            setEditorJSON(parsed);
+          });
         }
       } catch (error) {
         console.error("Error loading saved content:", error);
@@ -54,27 +58,17 @@ export default function PersistencePlugin() {
       }
     };
 
-    // Load saved content on mount
     loadSavedContent();
 
-    // Set up update listener with debouncing
     const unregister = editor.registerUpdateListener(({ editorState }) => {
-      // Clear existing timeout
-      if (saveTimeout) {
-        clearTimeout(saveTimeout);
-      }
-      
-      // Set new debounced save
+      if (saveTimeout) clearTimeout(saveTimeout);
       saveTimeout = setTimeout(() => {
         saveContent(editorState);
       }, DEBOUNCE_DELAY);
     });
 
-    // Cleanup function
     return () => {
-      if (saveTimeout) {
-        clearTimeout(saveTimeout);
-      }
+      if (saveTimeout) clearTimeout(saveTimeout);
       unregister();
     };
   }, [editor]);

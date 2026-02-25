@@ -12,7 +12,7 @@
   --dark-color: #343a40;
   --border-color: #dee2e6;
   --border-radius: 4px;
-  --box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   --transition: all 0.2s ease-in-out;
 }
 
@@ -38,7 +38,6 @@ body {
   border-radius: 16px;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   border: 1px solid rgba(0, 0, 0, 0.08);
-  backdrop-filter: blur(10px);
 }
 
 .app h2 {
@@ -51,18 +50,13 @@ body {
   letter-spacing: -0.5px;
 }
 
-/* Editor Container */
+/* ─── Editor Container ─────────────────────────────────────────── */
 .editor-container {
   border: 1px solid var(--border-color);
   border-radius: 12px;
   overflow: hidden;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
   background: white;
-  transition: box-shadow 0.3s ease;
-}
-
-.editor-container:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
 }
 
 .editor-wrapper {
@@ -74,29 +68,27 @@ body {
   padding: 24px;
   outline: none;
   font-size: 16px;
-  line-height: 1.7;
+  line-height: 1.8;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   color: #212529;
   background: white;
-  transition: all 0.3s ease;
   border: none;
 }
 
 .editor-input:focus {
   box-shadow: inset 0 0 0 2px var(--primary-color);
-  background: #fff;
 }
 
 .editor-placeholder {
   position: absolute;
-  top: 20px;
-  left: 20px;
-  color: #999;
+  top: 24px;
+  left: 24px;
+  color: #aaa;
   pointer-events: none;
   font-size: 16px;
 }
 
-/* Toolbar Styles */
+/* ─── Toolbar ──────────────────────────────────────────────────── */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
@@ -105,7 +97,6 @@ body {
   background: linear-gradient(180deg, #f8f9fa 0%, #e9ecef 100%);
   border-bottom: 1px solid var(--border-color);
   align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
 .toolbar-group {
@@ -127,50 +118,25 @@ body {
   padding: 10px 14px;
   cursor: pointer;
   font-size: 14px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: var(--transition);
   min-width: 44px;
   text-align: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
   font-weight: 500;
-  position: relative;
-  overflow: hidden;
-}
-
-.toolbar-button:hover {
-  background: #f8f9fa;
-  border-color: #868e96;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transform: translateY(-2px);
-}
-
-.toolbar-button:hover::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(180deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0) 100%);
 }
 
 .toolbar-button:hover {
   background: #e9ecef;
   border-color: #adb5bd;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  transform: translateY(-1px);
 }
 
 .toolbar-button.active {
   background: var(--primary-color);
   color: white;
   border-color: var(--primary-color);
-  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
-  transform: translateY(-1px);
-}
-
-.toolbar-button.active:hover {
-  background: var(--primary-hover);
-  border-color: var(--primary-hover);
-  box-shadow: 0 6px 16px rgba(0, 123, 255, 0.4);
-  transform: translateY(-2px);
+  box-shadow: 0 3px 8px rgba(0, 123, 255, 0.35);
 }
 
 .toolbar-button.primary {
@@ -184,7 +150,7 @@ body {
   border-color: var(--primary-hover);
 }
 
-/* Table Controls */
+/* ─── Table Controls ───────────────────────────────────────────── */
 .table-controls {
   position: fixed;
   top: 20px;
@@ -269,13 +235,10 @@ body {
   border-color: #c82333;
 }
 
-/* Modal Styles */
+/* ─── Modal ────────────────────────────────────────────────────── */
 .modal-overlay {
   position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -286,8 +249,8 @@ body {
 
 .modal-content {
   background: white;
-  border-radius: var(--border-radius);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   width: 100%;
   max-width: 600px;
   max-height: 90vh;
@@ -347,7 +310,9 @@ body {
   margin-bottom: 20px;
 }
 
-.input-group label {
+.input-group label,
+.preview-group label,
+.examples label {
   display: block;
   margin-bottom: 8px;
   font-weight: 600;
@@ -373,13 +338,6 @@ body {
 
 .preview-group {
   margin-bottom: 20px;
-}
-
-.preview-group label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: var(--dark-color);
 }
 
 .math-preview {
@@ -414,13 +372,6 @@ body {
   margin-top: 20px;
 }
 
-.examples label {
-  display: block;
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: var(--dark-color);
-}
-
 .example-buttons {
   display: flex;
   gap: 8px;
@@ -444,7 +395,7 @@ body {
   border-color: #adb5bd;
 }
 
-/* Button Styles */
+/* ─── Buttons ──────────────────────────────────────────────────── */
 .button {
   padding: 10px 20px;
   border: none;
@@ -479,46 +430,122 @@ body {
   background: #5a6268;
 }
 
-/* Math Node Styles */
-.math-node {
-  display: block;
-  padding: 20px;
-  margin: 20px 0;
-  background: #f8f9fa;
-  border: 1px solid #e9ecef;
+/* ─── Math Inline Node ─────────────────────────────────────────── */
+/* Wrapper span Lexical creates */
+.math-node-wrapper {
+  display: inline;
+}
+
+/* The actual rendered math — bold, inline, after text */
+.math-inline-node {
+  display: inline !important;
+  font-weight: bold;
+  font-style: normal;
+  padding: 1px 5px;
+  margin: 0 3px;
+  background-color: #eef4ff;
+  border: 1px solid #c5d8ff;
+  border-radius: 4px;
+  font-size: 0.95em;
+  vertical-align: middle;
+  cursor: default;
+  white-space: nowrap;
+  color: #1a3a6e;
+  box-shadow: 0 1px 3px rgba(0, 100, 255, 0.1);
+}
+
+.math-inline-node:hover {
+  background-color: #ddeaff;
+  border-color: #99bfff;
+}
+
+/* KaTeX inside inline math — keep it compact */
+.math-inline-node .katex {
+  font-size: 1em !important;
+}
+
+/* ─── Table — Equal Cells ──────────────────────────────────────── */
+/* 
+  Lexical renders tables with these classes: 
+  .editor-table, .editor-table-cell, .editor-table-cell-header
+  We override them here for equal, clean cells.
+*/
+/* ─── REPLACE your existing table CSS block with this ─────────── */
+
+.editor-table {
+  border-collapse: collapse !important;
+  width: 100% !important;
+  margin: 16px 0 !important;
+  table-layout: fixed !important;
+  border: 2px solid #3a3a5c !important;
   border-radius: 8px;
-  text-align: center;
-  font-size: 18px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
-  transition: all 0.2s ease;
+  overflow: hidden;
 }
 
-.math-node:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  transform: translateY(-1px);
+.editor-table-scroll-wrapper {
+  overflow-x: auto;
+  width: 100%;
 }
 
-/* Editor Theme Classes */
+.editor-table-row {
+  border: none;
+}
+
+/* Data cells */
+.editor-table-cell {
+  border: 1.5px solid #8a9bb0 !important;
+  padding: 12px 16px !important;
+  vertical-align: top !important;
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+  box-sizing: border-box !important;
+  width: auto !important;
+  background: #ffffff !important;
+  color: #212529 !important;
+  font-size: 14px;
+  line-height: 1.6;
+  min-height: 40px;
+}
+
+.editor-table-cell:hover {
+  background: #eef5ff !important;
+  outline: 2px solid #4a90d9;
+  outline-offset: -2px;
+}
+
+/* Header cells */
+.editor-table-cell-header {
+  border: 1.5px solid #5a6a80 !important;
+  padding: 14px 16px !important;
+  vertical-align: middle !important;
+  word-wrap: break-word !important;
+  box-sizing: border-box !important;
+  width: auto !important;
+  background: linear-gradient(160deg, #2c3e6b 0%, #3d5a99 100%) !important;
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-size: 14px;
+  text-align: center !important;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-size: 12px;
+}
+
+/* Zebra rows */
+.editor-table-row:nth-child(even) .editor-table-cell {
+  background: #f4f7fb !important;
+}
+
+/* Selected cell */
+.editor-table .selected-cell-highlight {
+  background: #bbd4ff !important;
+  outline: 2px solid #0066ff !important;
+  outline-offset: -2px;
+}
+
+/* ─── Editor Theme Text Classes ────────────────────────────────── */
 .editor-paragraph {
-  margin: 0 0 12px 0;
-}
-
-.editor-heading-h1 {
-  font-size: 2em;
-  font-weight: bold;
-  margin: 0.67em 0;
-}
-
-.editor-heading-h2 {
-  font-size: 1.5em;
-  font-weight: bold;
-  margin: 0.83em 0;
-}
-
-.editor-heading-h3 {
-  font-size: 1.17em;
-  font-weight: bold;
-  margin: 1em 0;
+  margin: 0 0 10px 0;
 }
 
 .editor-text-bold {
@@ -563,126 +590,7 @@ body {
   margin: 0 0 12px 0;
 }
 
-.editor-table {
-  border-collapse: collapse;
-  width: 100%;
-  margin: 12px 0;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
-  border-radius: 10px;
-  overflow: hidden;
-  border: 2px solid #495057;
-  background: white;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-}
-
-.editor-table-row {
-  transition: all 0.2s ease;
-}
-
-.editor-table-cell {
-  border: 2px solid #495057 !important;
-  padding: 14px 18px;
-  vertical-align: top;
-  background: white;
-  transition: all 0.2s ease;
-  min-width: 120px;
-  position: relative;
-  font-size: 15px;
-  color: #212529;
-  line-height: 1.5;
-}
-
-.editor-table-cell:hover {
-  background: #f8f9fa;
-  box-shadow: inset 0 0 0 2px #0d6efd;
-  transform: translateY(-1px);
-}
-
-.editor-table-cell-header {
-  background: #e9ecef !important;
-  font-weight: 600;
-  color: #212529;
-  padding: 16px 18px;
-  border: 2px solid #495057 !important;
-  text-align: center;
-  position: relative;
-  font-size: 16px;
-  background: linear-gradient(180deg, #e9ecef 0%, #ced4da 100%) !important;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.editor-table-row:last-child .editor-table-cell {
-  border-bottom: 2px solid #495057 !important;
-}
-
-.editor-table-row:last-child .editor-table-cell-header {
-  border-bottom: 2px solid #495057 !important;
-}
-
-.editor-table-caption {
-  caption-side: bottom;
-  text-align: left;
-  padding: 10px;
-  color: #6c757d;
-  font-size: 14px;
-  font-style: italic;
-  font-weight: 500;
-}
-
-/* Additional styling for better visual appearance */
-.editor-table tr:nth-child(even) {
-  background-color: #f8f9fa;
-}
-
-.editor-table tr:hover {
-  background-color: #f1f8ff;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .app {
-    padding: 20px;
-    margin: 10px;
-  }
-  
-  .toolbar {
-    flex-direction: column;
-    align-items: stretch;
-  }
-  
-  .toolbar-group {
-    border-right: none;
-    border-bottom: 1px solid var(--border-color);
-    padding: 8px 0;
-  }
-  
-  .toolbar-group:last-child {
-    border-bottom: none;
-  }
-  
-  .table-controls {
-    position: fixed;
-    top: 10px;
-    right: 10px;
-    left: 10px;
-    max-width: none;
-  }
-  
-  .modal-overlay {
-    padding: 10px;
-  }
-  
-  .modal-content {
-    max-height: 95vh;
-  }
-}
-
-/* Loading and Error States */
-.loading {
-  opacity: 0.6;
-  pointer-events: none;
-}
-
+/* ─── Status Banners ───────────────────────────────────────────── */
 .error-banner {
   background: #f8d7da;
   color: #721c24;
@@ -699,4 +607,39 @@ body {
   border: 1px solid #c3e6cb;
   border-radius: var(--border-radius);
   margin-bottom: 16px;
+}
+
+/* ─── Responsive ───────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .app {
+    padding: 16px;
+    margin: 8px;
+  }
+
+  .toolbar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .toolbar-group {
+    border-right: none;
+    border-bottom: 1px solid var(--border-color);
+    padding: 8px 0;
+  }
+
+  .toolbar-group:last-child {
+    border-bottom: none;
+  }
+
+  .table-controls {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    left: 10px;
+    max-width: none;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+  }
 }
