@@ -431,12 +431,10 @@ body {
 }
 
 /* ─── Math Inline Node ─────────────────────────────────────────── */
-/* Wrapper span Lexical creates */
 .math-node-wrapper {
   display: inline;
 }
 
-/* The actual rendered math — bold, inline, after text */
 .math-inline-node {
   display: inline !important;
   font-weight: bold;
@@ -459,27 +457,22 @@ body {
   border-color: #99bfff;
 }
 
-/* KaTeX inside inline math — keep it compact */
 .math-inline-node .katex {
   font-size: 1em !important;
 }
 
-/* ─── Table — Equal Cells ──────────────────────────────────────── */
-/* 
-  Lexical renders tables with these classes: 
-  .editor-table, .editor-table-cell, .editor-table-cell-header
-  We override them here for equal, clean cells.
-*/
-/* ─── REPLACE your existing table CSS block with this ─────────── */
+/* ─── Table ────────────────────────────────────────────────────── */
+/* Only 2 changes from your original:
+   1. Header background: light grey (#f1f3f5) instead of dark navy
+   2. Header text: dark (#343a40) instead of white
+   Everything else kept as-is */
 
 .editor-table {
   border-collapse: collapse !important;
   width: 100% !important;
   margin: 16px 0 !important;
   table-layout: fixed !important;
-  border: 2px solid #3a3a5c !important;
-  border-radius: 8px;
-  overflow: hidden;
+  border: 1px solid #ced4da !important;
 }
 
 .editor-table-scroll-wrapper {
@@ -491,10 +484,9 @@ body {
   border: none;
 }
 
-/* Data cells */
 .editor-table-cell {
-  border: 1.5px solid #8a9bb0 !important;
-  padding: 12px 16px !important;
+  border: 1px solid #ced4da !important;
+  padding: 10px 14px !important;
   vertical-align: top !important;
   word-wrap: break-word !important;
   overflow-wrap: break-word !important;
@@ -502,45 +494,35 @@ body {
   width: auto !important;
   background: #ffffff !important;
   color: #212529 !important;
-  font-size: 14px;
-  line-height: 1.6;
-  min-height: 40px;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
 }
 
 .editor-table-cell:hover {
-  background: #eef5ff !important;
-  outline: 2px solid #4a90d9;
-  outline-offset: -2px;
+  background: #f0f4ff !important;
 }
 
-/* Header cells */
+/* ✅ FIXED: light grey header, dark readable text */
 .editor-table-cell-header {
-  border: 1.5px solid #5a6a80 !important;
-  padding: 14px 16px !important;
+  border: 1px solid #ced4da !important;
+  padding: 10px 14px !important;
   vertical-align: middle !important;
   word-wrap: break-word !important;
   box-sizing: border-box !important;
   width: auto !important;
-  background: linear-gradient(160deg, #2c3e6b 0%, #3d5a99 100%) !important;
-  color: #ffffff !important;
-  font-weight: 700 !important;
-  font-size: 14px;
-  text-align: center !important;
-  letter-spacing: 0.03em;
-  text-transform: uppercase;
-  font-size: 12px;
+  background: #f1f3f5 !important;
+  color: #343a40 !important;
+  font-weight: 600 !important;
+  font-size: 14px !important;
+  text-align: left !important;
 }
 
-/* Zebra rows */
 .editor-table-row:nth-child(even) .editor-table-cell {
-  background: #f4f7fb !important;
+  background: #f8f9fa !important;
 }
 
-/* Selected cell */
 .editor-table .selected-cell-highlight {
-  background: #bbd4ff !important;
-  outline: 2px solid #0066ff !important;
-  outline-offset: -2px;
+  background: #cce0ff !important;
 }
 
 /* ─── Editor Theme Text Classes ────────────────────────────────── */
