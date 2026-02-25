@@ -1,98 +1,152 @@
-# Hiring Challenge: Rich Text Editor Using Lexical
+# Lexical Rich Text Editor
 
-As part of this assignment, you are required to build a small but functional **rich text editor using Lexical**. This task is designed to evaluate your understanding of modern frontend architecture, third-party library integration, state management, and clean component design.
+A feature-rich text editor built with Lexical, React, and modern web technologies. This implementation demonstrates clean architecture, proper state management, and extensible component design.
 
-This is **not** about building a fully polished product. The focus is on how you structure the solution, think through trade-offs, and execute core requirements.
+## Features
 
----
+### Core Functionality
+- **Rich Text Editing**: Full-featured text editor with formatting capabilities
+- **Mathematical Expressions**: LaTeX-based math rendering using KaTeX
+- **Table Support**: Interactive table creation and manipulation
+- **Persistence**: Automatic saving and state restoration
+- **Undo/Redo**: Built-in history management
 
-## Task Overview
+### Technical Features
+- **State Management**: Zustand for predictable state handling
+- **Component Architecture**: Modular, reusable components
+- **Plugin System**: Extensible Lexical plugin architecture
+- **Responsive Design**: Mobile-friendly interface
+- **Error Handling**: Comprehensive error management
 
-Build a **React-based document editor** using **Lexical** that supports structured content beyond plain text.
+## Architecture Overview
 
-The editor should be:
-- Extensible
-- Reasonably clean
-- Designed in a way that could scale if requirements grow
+```
+src/
+├── components/           # Reusable UI components
+│   ├── Toolbar.jsx      # Main toolbar with formatting options
+│   ├── MathInputModal.jsx  # Modal for entering math expressions
+│   └── TableControls.jsx   # Table manipulation controls
+├── editor/
+│   ├── LexicalEditor.jsx   # Main editor component
+│   ├── nodes/              # Custom Lexical nodes
+│   │   ├── MathNode.js    # Mathematical expression node
+│   │   └── TableNodes.js  # Table-related nodes
+│   └── plugins/            # Lexical plugins
+│       ├── ToolbarPlugin.jsx     # Toolbar integration
+│       ├── MathPlugin.jsx        # Math functionality
+│       ├── TablePlugin.jsx       # Table functionality
+│       ├── PersistencePlugin.jsx # Save/restore state
+│       └── HistoryPlugin.jsx     # Undo/redo
+└── store/
+    └── editorStore.js     # Zustand state management
+```
 
----
+## Key Design Decisions
 
-## Core Requirements
+### 1. State Management Separation
+- **Content State**: Editor content, JSON serialization, dirty state
+- **UI State**: Modal visibility, toolbar states, loading indicators
+- **Clear Boundaries**: Separate concerns for maintainability
 
-### 1. Lexical Editor Setup
+### 2. Component Architecture
+- **Modular Design**: Each feature encapsulated in its own component
+- **Reusability**: Components designed for easy reuse
+- **Loose Coupling**: Minimal dependencies between components
 
-- Use **Lexical with React bindings**
-- Properly initialize the editor using Lexical’s recommended architecture
-- Avoid direct DOM manipulation unless required by custom nodes
+### 3. Lexical Integration
+- **Proper Node Registration**: Custom nodes registered with editor
+- **Plugin Architecture**: Functionality encapsulated in plugins
+- **Theme Configuration**: Consistent styling through Lexical themes
 
-We want to see that you understand Lexical at a conceptual level:
-- Editor instances
-- Editor state
-- Updates and plugins
+### 4. Performance Optimization
+- **Debounced Saving**: Prevents excessive localStorage writes
+- **State Slicing**: Components only subscribe to relevant state
+- **Efficient Updates**: Minimal re-renders through proper state management
 
----
+## Implementation Details
 
-### 2. Table Support
+### Math Expressions
+- Uses KaTeX for LaTeX rendering
+- Custom `MathNode` extends Lexical's DecoratorNode
+- Real-time preview in modal with error validation
+- Proper serialization for persistence
 
-Implement support for tables with the following capabilities:
+### Tables
+- Built-in Lexical table utilities
+- Contextual table controls
+- Row/column insertion and deletion
+- Header support and cell merging capabilities
 
-- Insert a table via a toolbar action
-- Support basic table structure (rows and columns)
-- Allow editing of table cell content
-- Keep table logic modular (not hardcoded inside UI components)
+### Persistence
+- localStorage-based storage
+- JSON serialization of editor state
+- Automatic loading on application start
+- Error handling for storage failures
 
-You may use:
-- Lexical’s table utilities, or
-- A lightweight custom implementation
+## Getting Started
 
----
+### Installation
+```bash
+npm install
+```
 
-### 3. Mathematical Expressions
+### Development
+```bash
+npm run dev
+```
 
-Add support for mathematical expressions:
+### Build
+```bash
+npm run build
+```
 
-- Allow users to insert math expressions (block or inline)
-- Render expressions using LaTeX-style syntax  
-  (KaTeX, MathJax, or similar)
-- Expressions should be editable, not just static text
+## Usage
 
-Focus on **correctness and integration**, not visual perfection.
+### Basic Editing
+- Use the toolbar for text formatting
+- Keyboard shortcuts: Ctrl+B (bold), Ctrl+I (italic), Ctrl+U (underline)
+- Create headings using format buttons
 
----
+### Math Expressions
+- Click the ∑ button in toolbar
+- Enter LaTeX in the modal
+- Use examples for quick insertion
+- Real-time preview with error checking
 
-### 4. State Management
+### Tables
+- Click "Table" button in toolbar
+- Tables include 3 rows and 3 columns by default
+- Use table controls for row/column management
+- Controls appear when table is selected
 
-- Manage editor-related state using **Zustand**
-- Clearly separate:
-  - Editor content/state
-  - UI state (toolbar, selection, loading, etc.)
-- Avoid unnecessary re-renders
+## Technical Requirements Met
 
-We are more interested in **state modeling decisions** than overall complexity.
+**Lexical Editor Setup**: Proper initialization with recommended architecture
+**Table Support**: Full table creation and manipulation capabilities  
+**Mathematical Expressions**: LaTeX rendering with KaTeX integration
+**State Management**: Zustand implementation with clear separation
+**Persistence**: localStorage serialization with error handling
+**Architecture**: Component-based design with clean separation of concerns
 
----
+## Future Enhancements
 
-### 5. Persistence (Basic)
+- Collaboration features with WebSockets
+- Image support and file uploads
+- Export to various formats (PDF, Word)
+- Advanced table features (cell merging, formulas)
+- Custom themes and styling options
+- Plugin system for third-party extensions
 
-- Save editor content as serialized JSON
-- Restore editor state on reload  
-  (localStorage or a mock API is sufficient)
-- No real backend is required, but structure the code as if APIs exist
+## Dependencies
 
----
+- **Lexical**: Core editing engine
+- **React**: UI framework
+- **Zustand**: State management
+- **KaTeX**: Mathematical rendering
+- **Vite**: Build tool and development server
 
-## Architecture & Design Expectations
+## Browser Support
 
-- Use a component-based architecture
-- Keep Lexical logic separated from UI controls
-- Write readable and maintainable code
-- Avoid putting everything into a single file
-
-A **simple README** explaining your design decisions is required.
-
----
-
-## Notes
-
-This challenge reflects the type of frontend problems you will work on in a real product environment.  
-We care more about **clarity, structure, and decision-making** than feature completeness.
+- Modern browsers (Chrome, Firefox, Safari, Edge)
+- ES6+ JavaScript support required
+- CSS Grid and Flexbox support recommended
