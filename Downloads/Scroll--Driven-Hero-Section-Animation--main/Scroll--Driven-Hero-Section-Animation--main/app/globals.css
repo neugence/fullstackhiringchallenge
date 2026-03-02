@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+:root {
+  --background-rgb: 9, 9, 11;
+  --foreground-rgb: 250, 250, 250;
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: rgb(var(--background-rgb));
+  margin: 0;
+  overflow-x: hidden;
+  overscroll-behavior-y: none;
+}
+
+h1, .font-heading {
+  font-family: var(--font-outfit), sans-serif;
+}
