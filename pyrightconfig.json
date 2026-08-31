@@ -1,0 +1,8 @@
+{
+  "venvPath": "smart-blog-editor/server",
+  "venv": "venv",
+  "extraPaths": [
+    "smart-blog-editor/server",
+    "smart-blog-editor/server/venv/Lib/site-packages"
+  ]
+}

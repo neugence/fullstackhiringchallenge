@@ -1,0 +1,17 @@
+# Ignore self placement notes
+self.md
+
+# Ignore dependencies & build outputs
+node_modules/
+venv/
+__pycache__/
+dist/
+.DS_Store
+blog.db
+.agent/
+.gemini/
+
+# Ignore secrets
+.env
+.env.*
+!.env.example

@@ -1,0 +1,9 @@
+{
+  "python.defaultInterpreterPath": "${workspaceFolder}/smart-blog-editor/server/venv/Scripts/python.exe",
+  "python.analysis.extraPaths": [
+    "${workspaceFolder}/smart-blog-editor/server",
+    "${workspaceFolder}/smart-blog-editor/server/venv/Lib/site-packages",
+    "./server",
+    "./server/venv/Lib/site-packages"
+  ]
+}

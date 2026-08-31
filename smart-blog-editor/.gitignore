@@ -1,0 +1,12 @@
+node_modules/
+venv/
+__pycache__/
+.env
+.env.*
+!.env.example
+dist/
+.DS_Store
+blog.db
+.agent/
+.gemini/
+self.md
