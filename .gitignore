@@ -1,5 +1,6 @@
 # Ignore self placement notes
 self.md
+self-data.md
 
 # Ignore dependencies & build outputs
 node_modules/
